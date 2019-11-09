@@ -1,37 +1,72 @@
-import React, { Component } from 'react';
-import Carousel from 'react-bootstrap/Carousel'
+//import React, { Component } from 'react';
+//import Carousel from 'react-bootstrap/Carousel'
+
+import React, { useState } from 'react';
+import {
+  Carousel,
+  CarouselItem,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselCaption
+} from 'reactstrap';
+
 import { PicGrp1, PicGroup2 } from './picturesGroup1.js';
 
-class PicCarousel extends React.Component {
+const items = PicGrp1;
 
-    render() {        
-        return (
-            <div className='pictureList'>
-              <Carousel>
-                {PicGrp1.map((picture, index) => {
-                  return (
-                    <div key={index}>
-
-                      <img 
-                        className="d-block w-100"
-                        alt={picture.title}
-                        src={picture.imageUrl}
-                        width={picture.width}
-                        height={picture.height}
-                        style={{transform: `rotate(${picture.rotate}deg)`}}
-                      />
-                      <Carousel.Caption>
-                        <h3>{picture.title}</h3>
-                        <p>{picture.author}</p>
-                      </Carousel.Caption>
-                    </div>
-                  )
-                })}
-              </Carousel>
-            </div>
-        );
+  const PicCarousel = (props) => {
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [animating, setAnimating] = useState(false);
+  
+    const next = () => {
+      if (animating) return;
+      const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
+      setActiveIndex(nextIndex);
     }
-   
-}
-
-export default PicCarousel;
+  
+    const previous = () => {
+      if (animating) return;
+      const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
+      setActiveIndex(nextIndex);
+    }
+  
+    const goToIndex = (newIndex) => {
+      if (animating) return;
+      setActiveIndex(newIndex);
+    }
+  
+    const slides = items.map((item) => {
+      return (
+        <CarouselItem
+          onExiting={() => setAnimating(true)}
+          onExited={() => setAnimating(false)}
+          key={item.imageUrl}
+        >
+          <img 
+                        className="d-block w-100"
+                        alt={item.title}
+                        src={item.imageUrl}
+                        width={item.width}
+                        height={item.height}
+                        style={{transform: `rotate(${item.rotate}deg)`}}
+                      />
+          <CarouselCaption captionText={item.author} captionHeader={item.title} />
+        </CarouselItem>
+      );
+    });
+  
+    return (
+      <Carousel
+        activeIndex={activeIndex}
+        next={next}
+        previous={previous}
+      >
+        <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
+        {slides}
+        <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
+        <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
+      </Carousel>
+    );
+  }
+  
+  export default PicCarousel;
