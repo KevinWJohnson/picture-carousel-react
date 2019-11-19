@@ -4,6 +4,8 @@ import './App.css';
 
 import PicCarousel from './PicCarousel';
 import TopBar from './TopBar';
+import PlayPauseBtns from './PlayPauseBtns';
+
 
 
 class App extends Component {
@@ -14,6 +16,11 @@ class App extends Component {
           <div className="topbar">
           <TopBar></TopBar>
           </div>
+
+          <div className="playpauseBtns">
+          <PlayPauseBtns></PlayPauseBtns>
+          </div>
+          
       
           <div className="carousel">
             <PicCarousel></PicCarousel>
