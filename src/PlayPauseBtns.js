@@ -4,18 +4,18 @@ import {IoIosPlay, IoIosPause} from 'react-icons/io';
 const PlayPauseBtns = (props) => {
 
   const handlePlay = () => {
-    this.props.onPlay();
-  }
+    props.onPlay();
+  };
 
   const handlePause = () => {
-    this.props.onPause();
-  }
+    props.onPause();
+  };
 
   return (
   <div>
     <button
           name='button-play'
-          onClick={() => handlePlay}
+          onClick={handlePlay}
         >
           Cycle Through Slides   
           <span><IoIosPlay /></span>
@@ -23,7 +23,7 @@ const PlayPauseBtns = (props) => {
     {/* <div className="divider"></div> */}
     <button
           name='button-pause'
-          onClick={() => handlePause}
+          onClick={handlePause}
         >
           Pause Slide   
           <span><IoIosPause /></span>
