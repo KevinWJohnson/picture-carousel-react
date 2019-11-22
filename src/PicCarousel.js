@@ -1,6 +1,3 @@
-//import React, { Component } from 'react';
-//import Carousel from 'react-bootstrap/Carousel'
-
 import React, { useState } from 'react';
 import {
   Carousel,
@@ -10,7 +7,8 @@ import {
   CarouselCaption
 } from 'reactstrap';
 
-import { PicGrp1, PicGroup2 } from './picturesGroup1.js';
+//import { PicGrp1, PicGroup2 } from './picturesGroup1.js';
+import { PicGrp1 } from './picturesGroup1.js';
 
 const items = PicGrp1;
 
@@ -60,6 +58,7 @@ const items = PicGrp1;
         activeIndex={activeIndex}
         next={next}
         previous={previous}
+        interval={props.intervalSet}
       >
         <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
         {slides}
