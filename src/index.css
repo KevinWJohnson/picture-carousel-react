@@ -73,3 +73,8 @@ img {
   height: 50px !important;
   
 }
+
+.playpauseBtns {
+  margin-top: 1%;
+  margin-bottom: 1%;
+}

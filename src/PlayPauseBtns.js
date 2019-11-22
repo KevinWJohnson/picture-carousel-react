@@ -28,7 +28,6 @@ const PlayPauseBtns = (props) => {
           Pause Slide   
           <span><IoIosPause /></span>
     </button>
-
   </div>
  );
 }
