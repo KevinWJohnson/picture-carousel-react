@@ -11,11 +11,11 @@ import PlayPauseBtns from './PlayPauseBtns';
 class App extends Component {
 
   state = {
-    intervalValue: 5000,
+    intervalValue: 3000,
   };
 
   handleCarouselPlay = () => { 
-    this.setState({intervalValue: 5000});
+    this.setState({intervalValue: 3000});
   };
 
   handleCarouselPause = () => { 
