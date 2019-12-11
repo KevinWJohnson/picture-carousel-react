@@ -74,7 +74,18 @@ img {
   
 }
 
-.playpauseBtns {
+.playPauseBtns {
   margin-top: 1%;
   margin-bottom: 1%;
+  float: left;
+}
+
+.createEditDeleteBtns {
+  margin-top: 1%;
+  margin-bottom: 1%;
+  float: right;
+}
+
+.clearFloat {
+  clear: both;
 }

@@ -17,16 +17,16 @@ const PlayPauseBtns = (props) => {
           name='button-play'
           onClick={handlePlay}
         >
-          Cycle Through Slides   
-          <span><IoIosPlay /></span>
+          Cycle Through Slides
+          <span>  <IoIosPlay /></span>
     </button>
     {/* <div className="divider"></div> */}
     <button
           name='button-pause'
           onClick={handlePause}
         >
-          Pause Slide   
-          <span><IoIosPause /></span>
+          Pause Slide
+          <span>  <IoIosPause /></span>
     </button>
   </div>
  );
