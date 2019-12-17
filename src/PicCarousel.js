@@ -7,8 +7,12 @@ import {
   CarouselCaption
 } from 'reactstrap';
 
+//import uuid from "uuid";
+
 //import { PicGrp1, PicGroup2 } from './picturesGroup1.js';
 import { PicGrp1 } from './picturesGroup1.js';
+
+
 
 const items = PicGrp1;
 
