@@ -37,7 +37,7 @@ const items = PicGrp1;
       setActiveIndex(newIndex);
     }
   
-    const slides = items.map((item) => {
+    const slidesOfPics = items.map((item) => {
       return (
         <CarouselItem
           onExiting={() => setAnimating(true)}
@@ -65,7 +65,7 @@ const items = PicGrp1;
         interval={props.intervalSet}
       >
         <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
-        {slides}
+        {slidesOfPics}
         <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
         <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
       </Carousel>

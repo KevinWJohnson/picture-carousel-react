@@ -13,6 +13,7 @@ class App extends Component {
 
   state = {
     intervalValue: 3000,
+    slides: [],
   };
 
   handleCarouselPlay = () => { 
