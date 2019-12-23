@@ -7,16 +7,9 @@ import {
   CarouselCaption
 } from 'reactstrap';
 
-//import uuid from "uuid";
-
-//import { PicGrp1, PicGroup2 } from './picturesGroup1.js';
-import { PicGrp1 } from './picturesGroup1.js';
-
-
-
-const items = PicGrp1;
 
   const PicCarousel = (props) => {
+    const items = props.currentSlides;
     const [activeIndex, setActiveIndex] = useState(0);
     const [animating, setAnimating] = useState(false);
   

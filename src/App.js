@@ -6,6 +6,7 @@ import PicCarousel from './PicCarousel';
 import TopBar from './TopBar';
 import PlayPauseBtns from './PlayPauseBtns';
 import CreateEditDeleteBtns from './CreateEditDeleteBtns';
+import { PicGrp1 } from './picturesGroup1.js';
 
 
 
@@ -16,6 +17,10 @@ class App extends Component {
     slides: [],
     currentIndex: 0,
   };
+
+  componentDidMount() {
+    this.setState({slides: PicGrp1});
+  }
 
   handleCarouselPlay = () => { 
     this.setState({intervalValue: 3000});
@@ -34,6 +39,10 @@ class App extends Component {
   };
 
   handleCarouselDelete = () => { 
+    const deleteSlideId = this.getSlideId();
+    console.log("Current Slide Index: " + this.state.currentIndex);
+    console.log("Current Slide Id: " + deleteSlideId);
+    this.deleteSlide(deleteSlideId);
     
   };
 
@@ -44,8 +53,24 @@ class App extends Component {
   };
 
   getSlideId = () => {
-
+    this.handleCarouselPause();
+    this.handleCarouselCurrentIndex();
+    let currentId = 0;
+    for (let i = 0; i < this.state.slides.length; i++) {
+        if (this.state.currentIndex === i) {
+          currentId = this.state.slides[i].id;
+        break;
+        }
+    }
+    return currentId;
+    
   };
+
+  deleteSlide = (slideId) => {
+    this.setState ({
+      slides: this.state.slides.filter(s => s.id !== slideId),
+    });
+  }
 
   render() {
     return (
@@ -84,6 +109,7 @@ class App extends Component {
             <PicCarousel
             intervalSet={this.state.intervalValue}
             currentIndex={this.handleCarouselCurrentIndex}
+            currentSlides={this.state.slides}
             >
 
             </PicCarousel>
