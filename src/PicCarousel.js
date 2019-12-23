@@ -24,17 +24,20 @@ const items = PicGrp1;
       if (animating) return;
       const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
       setActiveIndex(nextIndex);
+      props.currentIndex(nextIndex);
     }
   
     const previous = () => {
       if (animating) return;
       const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
       setActiveIndex(nextIndex);
+      props.currentIndex(nextIndex);
     }
   
     const goToIndex = (newIndex) => {
       if (animating) return;
       setActiveIndex(newIndex);
+      props.currentIndex(newIndex);
     }
   
     const slidesOfPics = items.map((item) => {
@@ -42,7 +45,7 @@ const items = PicGrp1;
         <CarouselItem
           onExiting={() => setAnimating(true)}
           onExited={() => setAnimating(false)}
-          key={item.imageUrl}
+          key={item.id}
         >
           <img 
                         className="d-block w-100"

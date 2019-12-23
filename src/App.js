@@ -14,6 +14,7 @@ class App extends Component {
   state = {
     intervalValue: 3000,
     slides: [],
+    currentIndex: 0,
   };
 
   handleCarouselPlay = () => { 
@@ -34,6 +35,16 @@ class App extends Component {
 
   handleCarouselDelete = () => { 
     
+  };
+
+  handleCarouselCurrentIndex = (currentSlideIndex) => { 
+    this.setState({currentIndex: currentSlideIndex});
+    //console.log("Current Slide Index: " + this.state.currentIndex);
+    
+  };
+
+  getSlideId = () => {
+
   };
 
   render() {
@@ -72,6 +83,7 @@ class App extends Component {
           <div className="carousel">
             <PicCarousel
             intervalSet={this.state.intervalValue}
+            currentIndex={this.handleCarouselCurrentIndex}
             >
 
             </PicCarousel>
