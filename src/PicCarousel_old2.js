@@ -10,23 +10,27 @@ import {
 
   const PicCarousel = (props) => {
     const items = props.currentSlides;
+    const [activeIndex, setActiveIndex] = useState(0);
     const [animating, setAnimating] = useState(false);
   
     const next = () => {
       if (animating) return;
-      const nextIndex = props.currentIndex === items.length - 1 ? 0 : props.currentIndex + 1;
-      props.handleCurrentIndex(nextIndex);
+      const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
+      setActiveIndex(nextIndex);
+      props.currentIndex(nextIndex);
     }
   
     const previous = () => {
       if (animating) return;
-      const nextIndex = props.currentIndex === 0 ? items.length - 1 : props.currentIndex - 1;
-      props.handleCurrentIndex(nextIndex);
+      const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
+      setActiveIndex(nextIndex);
+      props.currentIndex(nextIndex);
     }
   
     const goToIndex = (newIndex) => {
       if (animating) return;
-      props.handleCurrentIndex(newIndex);
+      setActiveIndex(newIndex);
+      props.currentIndex(newIndex);
     }
   
     const slidesOfPics = items.map((item) => {
@@ -51,12 +55,12 @@ import {
   
     return (
       <Carousel
-        activeIndex={props.currentIndex}
+        activeIndex={activeIndex}
         next={next}
         previous={previous}
         interval={props.intervalSet}
       >
-        <CarouselIndicators items={items} activeIndex={props.currentIndex} onClickHandler={goToIndex} />
+        <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
         {slidesOfPics}
         <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
         <CarouselControl direction="next" directionText="Next" onClickHandler={next} />

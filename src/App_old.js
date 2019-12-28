@@ -38,22 +38,17 @@ class App extends Component {
     
   };
 
-  handleCarouselDelete = () => {
-    this.handleCarouselPause();
-    this.handleCarouselCurrentIndex();
+  handleCarouselDelete = () => { 
     const deleteSlideId = this.getSlideId();
+    console.log("Current Slide Index: " + this.state.currentIndex);
+    console.log("Current Slide Id: " + deleteSlideId);
     this.deleteSlide(deleteSlideId);
-    // Adjusting current slide index if the slide deleted is the last slide.
-    if (this.isFirstSlide()) {
-      this.setState({currentIndex: 0});
-    } else {
-      this.setState({currentIndex: this.state.currentIndex - 1});
-    }
     
   };
 
   handleCarouselCurrentIndex = (currentSlideIndex) => { 
     this.setState({currentIndex: currentSlideIndex});
+    //console.log("Current Slide Index: " + this.state.currentIndex);
     
   };
 
@@ -69,26 +64,6 @@ class App extends Component {
     }
     return currentId;
     
-  };
-
-  isLastSlide = () => {
-    this.handleCarouselPause();
-    this.handleCarouselCurrentIndex();
-      if (this.state.currentIndex === this.state.slides.length - 1) {
-        return true;
-      } else {
-        return false;
-      }
-  };
-
-  isFirstSlide = () => {
-    this.handleCarouselPause();
-    this.handleCarouselCurrentIndex();
-      if (this.state.currentIndex === 0) {
-        return true;
-      } else {
-        return false;
-      }
   };
 
   deleteSlide = (slideId) => {
@@ -133,8 +108,7 @@ class App extends Component {
           <div className="carousel">
             <PicCarousel
             intervalSet={this.state.intervalValue}
-            handleCurrentIndex={this.handleCarouselCurrentIndex}
-            currentIndex={this.state.currentIndex}
+            currentIndex={this.handleCarouselCurrentIndex}
             currentSlides={this.state.slides}
             >
 
