@@ -7,6 +7,7 @@ import TopBar from './TopBar';
 import PlayPauseBtns from './PlayPauseBtns';
 import CreateEditDeleteBtns from './CreateEditDeleteBtns';
 import { PicGrp1 } from './picturesGroup1.js';
+import uuid from 'uuid';
 
 
 
@@ -16,6 +17,17 @@ class App extends Component {
     intervalValue: 3000,
     slides: [],
     currentIndex: 0,
+    fields: {
+      title: '',
+      author: '',
+      period: '',
+      id: '',
+      imageUrl: '',
+      rotate: '',
+      width: '',
+      height: '',
+    },
+    fieldErrors: {},
   };
 
   componentDidMount() {
@@ -95,7 +107,74 @@ class App extends Component {
     this.setState ({
       slides: this.state.slides.filter(s => s.id !== slideId),
     });
-  }
+  };
+
+  handleCreateFormSubmit = (slide) => {
+    this.createSlide(slide);
+  };
+
+  createSlide = (slide) => {
+
+    if (this.validate()) return;
+
+    const ns = newSlide(slide);
+    this.setState({
+      slides: this.state.slides.concat(ns),
+      fields: {
+        title: '',
+        author: '',
+        period: '',
+        imageUrl: '',
+        rotate: '',
+        width: '',
+        height: '',
+      }
+    });
+    
+
+  newSlide = (attrs = {}) => {
+    const slide = {
+      title: attrs.title || 'Title',
+      author: attrs.author || 'Author',
+      period: attrs.period || 'Period',
+      id: uuid.v4(),
+      imageUrl: attrs.imageUrl || 'ImageUrl',
+      rotate: attrs.rotate || 'Rotate',
+      width: attrs.width || 'Width',
+      height: attrs.height || 'Height',
+    };
+
+    return slide;
+  };
+
+  onInputChange = ({name, value, error}) => {
+    const fields = Object.assign({}, this.state.fields);
+    const fieldErrors = Object.assign({}, this.state.fieldErrors);
+
+    fields[name] = value;
+    fieldErrors[name] = error;
+
+    this.setState({fields, fieldErrors});
+  };
+
+  validate = () => {
+    const slide = this.state.fields;
+    const fieldErrors = this.state.fieldErrors;
+    const errMessages = Object.keys(fieldErrors).filter(k => fieldErrors[k]);
+
+    if (!slide.title) return true;
+    if (!slide.author) return true;
+    if (!slide.period) return true;
+    if (!slide.imageUrl) return true;
+    if (!slide.rotate) return true;
+    if (!slide.width) return true;
+    if (!slide.height) return true;
+    if (errMessages.length) return true;
+
+    return false;
+  };
+
+}
 
   render() {
     return (
