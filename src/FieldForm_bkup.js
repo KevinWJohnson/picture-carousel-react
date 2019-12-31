@@ -3,28 +3,30 @@ import React from 'react';
 const Field = require('./FieldComponent.js');
 
 
-const FieldForm = (props) => {
+module.exports = class extends React.Component {
 
 
-const onFormSubmit = (slide) => {
-  props.onSubmit(slide);
-};
+  onFormSubmit = (slide) => {
+    this.props.onSubmit(slide);
+  };
 
-const onInputChange = ({name, value, error}) => {
-  props.onChange({name, value, error});
-};
+  onInputChange = ({name, value, error}) => {
+    this.props.onChange({name, value, error});
+    
+  };
 
 
+  render() {
     return (
       <div>
         <h1>Picture Input Form</h1>
 
-        <form onSubmit={onFormSubmit}>
+        <form onSubmit={this.onFormSubmit}>
           <Field
             placeholder="Title"
             name="title"
-            value={props.fields.title}
-            onChange={onInputChange}
+            value={this.props.fields.title}
+            onChange={this.onInputChange}
             validate={val => (val ? false : 'Title Required')}
           />
 
@@ -33,8 +35,8 @@ const onInputChange = ({name, value, error}) => {
           <Field
             placeholder="Author"
             name="author"
-            value={props.fields.author}
-            onChange={onInputChange}
+            value={this.props.fields.author}
+            onChange={this.onInputChange}
             validate={val => (val ? false : 'Author Required')}
           />
 
@@ -43,8 +45,8 @@ const onInputChange = ({name, value, error}) => {
           <Field
             placeholder="Period"
             name="period"
-            value={props.fields.period}
-            onChange={onInputChange}
+            value={this.props.fields.period}
+            onChange={this.onInputChange}
             validate={val => (val ? false : 'Period Required')}
           />
 
@@ -53,8 +55,8 @@ const onInputChange = ({name, value, error}) => {
           <Field
             placeholder="ImageUrl"
             name="imageUrl"
-            value={props.fields.imageUrl}
-            onChange={onInputChange}
+            value={this.props.fields.imageUrl}
+            onChange={this.onInputChange}
             validate={val => (val ? false : 'ImageUrl Required')}
           />
 
@@ -63,8 +65,8 @@ const onInputChange = ({name, value, error}) => {
           <Field
             placeholder="Rotate"
             name="rotate"
-            value={props.fields.rotate}
-            onChange={onInputChange}
+            value={this.props.fields.rotate}
+            onChange={this.onInputChange}
             validate={val => (val ? false : 'Rotate Required')}
           />
 
@@ -73,8 +75,8 @@ const onInputChange = ({name, value, error}) => {
           <Field
             placeholder="Width"
             name="width"
-            value={props.fields.width}
-            onChange={onInputChange}
+            value={this.props.fields.width}
+            onChange={this.onInputChange}
             validate={val => (val ? false : 'Width Required')}
           />
 
@@ -83,8 +85,8 @@ const onInputChange = ({name, value, error}) => {
           <Field
             placeholder="Height"
             name="height"
-            value={props.fields.height}
-            onChange={onInputChange}
+            value={this.props.fields.height}
+            onChange={this.onInputChange}
             validate={val => (val ? false : 'Height Required')}
           />
 
@@ -96,7 +98,7 @@ const onInputChange = ({name, value, error}) => {
         <div>
           <h3>Picture List</h3>
           <ul>
-            {props.slides.map(({title, author, period, id, imageUrl, rotate, width, height}) => (
+            {this.props.slides.map(({title, author, period, id, imageUrl, rotate, width, height}) => (
               <li key={id}>
                 Title: {title} 
                 <br />
@@ -119,6 +121,5 @@ const onInputChange = ({name, value, error}) => {
         </div>
       </div>
     );
-}
-
-export default FieldForm
+  }
+};

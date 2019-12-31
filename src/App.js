@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 //import logo from './logo.svg';
 import './App.css';
 
+import { PicGrp1 } from './picturesGroup1.js';
+import uuid from 'uuid';
 import PicCarousel from './PicCarousel';
 import TopBar from './TopBar';
 import PlayPauseBtns from './PlayPauseBtns';
 import CreateEditDeleteBtns from './CreateEditDeleteBtns';
-import { PicGrp1 } from './picturesGroup1.js';
-import uuid from 'uuid';
+import FieldForm from './FieldForm';
+
 
 
 
@@ -113,50 +115,6 @@ class App extends Component {
     this.createSlide(slide);
   };
 
-  createSlide = (slide) => {
-
-    if (this.validate()) return;
-
-    const ns = newSlide(slide);
-    this.setState({
-      slides: this.state.slides.concat(ns),
-      fields: {
-        title: '',
-        author: '',
-        period: '',
-        imageUrl: '',
-        rotate: '',
-        width: '',
-        height: '',
-      }
-    });
-    
-
-  newSlide = (attrs = {}) => {
-    const slide = {
-      title: attrs.title || 'Title',
-      author: attrs.author || 'Author',
-      period: attrs.period || 'Period',
-      id: uuid.v4(),
-      imageUrl: attrs.imageUrl || 'ImageUrl',
-      rotate: attrs.rotate || 'Rotate',
-      width: attrs.width || 'Width',
-      height: attrs.height || 'Height',
-    };
-
-    return slide;
-  };
-
-  onInputChange = ({name, value, error}) => {
-    const fields = Object.assign({}, this.state.fields);
-    const fieldErrors = Object.assign({}, this.state.fieldErrors);
-
-    fields[name] = value;
-    fieldErrors[name] = error;
-
-    this.setState({fields, fieldErrors});
-  };
-
   validate = () => {
     const slide = this.state.fields;
     const fieldErrors = this.state.fieldErrors;
@@ -174,7 +132,51 @@ class App extends Component {
     return false;
   };
 
-}
+  newSlide = (attrs = {}) => {
+    const slide = {
+      title: attrs.title || 'Title',
+      author: attrs.author || 'Author',
+      period: attrs.period || 'Period',
+      id: uuid.v4(),
+      imageUrl: attrs.imageUrl || 'ImageUrl',
+      rotate: attrs.rotate || 'Rotate',
+      width: attrs.width || 'Width',
+      height: attrs.height || 'Height',
+    };
+
+    return slide;
+  };
+
+  createSlide = (slide) => {
+
+    if (this.validate()) return;
+
+    const ns = this.newSlide(slide);
+    this.setState({
+      slides: this.state.slides.concat(ns),
+      fields: {
+        title: '',
+        author: '',
+        period: '',
+        imageUrl: '',
+        rotate: '',
+        width: '',
+        height: '',
+      }
+    });
+  };
+    
+
+  onInputChange = ({name, value, error}) => {
+    const fields = Object.assign({}, this.state.fields);
+    const fieldErrors = Object.assign({}, this.state.fieldErrors);
+
+    fields[name] = value;
+    fieldErrors[name] = error;
+
+    this.setState({fields, fieldErrors});
+  };
+
 
   render() {
     return (
@@ -218,6 +220,17 @@ class App extends Component {
             >
 
             </PicCarousel>
+          </div>
+
+          <div className="inputForm">
+            <FieldForm
+            onSubmit={this.handleCreateFormSubmit}
+            onChange={this.onInputChange}
+            fields={this.state.fields}
+            slides={this.state.slides}
+            >
+
+            </FieldForm>
           </div>
 
         </div>
