@@ -228,6 +228,7 @@ class App extends Component {
             onChange={this.onInputChange}
             fields={this.state.fields}
             slides={this.state.slides}
+            validate={this.validate}
             >
 
             </FieldForm>

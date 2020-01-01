@@ -1,6 +1,8 @@
 import React from 'react';
 
-const Field = require('./FieldComponent.js');
+import Field from './FieldComponent.js';
+
+//const Field = require('./FieldComponent.js');
 
 
 const FieldForm = (props) => {
@@ -90,7 +92,7 @@ const onInputChange = ({name, value, error}) => {
 
           <br />
 
-          <input type="submit" disabled={this.validate()} />
+          <input type="submit" disabled={props.validate()} />
         </form>
 
         <div>
