@@ -30,9 +30,14 @@ class FieldComponent extends React.Component {
     this.props.onChange({name, value, error});
   };
 
+  labelStyle = {
+    marginRight: '1%',
+  };
+
   render() {
     return (
-      <div>
+      <div className="form-group">
+        <label style={this.labelStyle} htmlFor={this.state.value}>{this.props.placeholder}: </label>
         <input
           placeholder={this.props.placeholder}
           value={this.state.value}

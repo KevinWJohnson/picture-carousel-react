@@ -22,6 +22,7 @@ const onInputChange = ({name, value, error}) => {
         <h1>Picture Input Form</h1>
 
         <form onSubmit={onFormSubmit}>
+
           <Field
             placeholder="Title"
             name="title"
@@ -30,8 +31,6 @@ const onInputChange = ({name, value, error}) => {
             validate={val => (val ? false : 'Title Required')}
           />
 
-          <br />
-
           <Field
             placeholder="Author"
             name="author"
@@ -39,9 +38,7 @@ const onInputChange = ({name, value, error}) => {
             onChange={onInputChange}
             validate={val => (val ? false : 'Author Required')}
           />
-
-          <br />
-
+        
           <Field
             placeholder="Period"
             name="period"
@@ -49,9 +46,7 @@ const onInputChange = ({name, value, error}) => {
             onChange={onInputChange}
             validate={val => (val ? false : 'Period Required')}
           />
-
-          <br />
-
+        
           <Field
             placeholder="ImageUrl"
             name="imageUrl"
@@ -60,8 +55,6 @@ const onInputChange = ({name, value, error}) => {
             validate={val => (val ? false : 'ImageUrl Required')}
           />
 
-          <br />
-
           <Field
             placeholder="Rotate"
             name="rotate"
@@ -69,9 +62,7 @@ const onInputChange = ({name, value, error}) => {
             onChange={onInputChange}
             validate={val => (val ? false : 'Rotate Required')}
           />
-
-          <br />
-
+        
           <Field
             placeholder="Width"
             name="width"
@@ -79,9 +70,7 @@ const onInputChange = ({name, value, error}) => {
             onChange={onInputChange}
             validate={val => (val ? false : 'Width Required')}
           />
-
-          <br />
-
+      
           <Field
             placeholder="Height"
             name="height"
@@ -89,7 +78,7 @@ const onInputChange = ({name, value, error}) => {
             onChange={onInputChange}
             validate={val => (val ? false : 'Height Required')}
           />
-
+           
           <br />
 
           <input type="submit" disabled={props.validate()} />
