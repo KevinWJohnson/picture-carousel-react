@@ -9,6 +9,7 @@ import TopBar from './TopBar';
 import PlayPauseBtns from './PlayPauseBtns';
 import CreateEditDeleteBtns from './CreateEditDeleteBtns';
 import FieldForm from './FieldForm';
+import Client from './Client';
 
 
 
@@ -33,9 +34,16 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.setState({slides: PicGrp1});
-    console.log("componentDidMount was called");
+    this.loadSlidesFromServer();
+    setInterval(this.loadSlidesFromServer, 5000);
   }
+
+  loadSlidesFromServer = () => {
+    Client.getSlides((serverSlides) => (
+      this.setState({ slides: serverSlides })
+      )
+    );
+  };
 
   handleCarouselPlay = () => { 
     this.setState({intervalValue: 3000});
