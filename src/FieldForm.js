@@ -8,8 +8,17 @@ import Field from './FieldComponent.js';
 const FieldForm = (props) => {
 
 
-const onFormSubmit = (slide) => {
-  props.onSubmit(slide);
+const onFormSubmit = () => {
+  props.onSubmit({
+    title: props.fields.title,
+    author: props.fields.author,
+    period: props.fields.period,
+    id: props.fields.id,
+    imageUrl: props.fields.imageUrl,
+    rotate: props.fields.rotate,
+    width: props.fields.width,
+    height: props.fields.height,
+  });
 };
 
 const onInputChange = ({name, value, error}) => {
@@ -20,6 +29,7 @@ const onInputChange = ({name, value, error}) => {
     return (
       <div>
         <h1>Picture Input Form</h1>
+        {console.log(JSON.stringify(props.slides, null, 4))}
 
         <form onSubmit={onFormSubmit}>
 
@@ -95,7 +105,9 @@ const onInputChange = ({name, value, error}) => {
                 <br />
                 Period: {period} 
                 <br />
-                Id: {id} 
+                Id: {id}
+                <br />
+                ImageUrl: {imageUrl} 
                 <br />
                 Rotate: {rotate} 
                 <br />

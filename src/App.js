@@ -34,6 +34,7 @@ class App extends Component {
 
   componentDidMount() {
     this.setState({slides: PicGrp1});
+    console.log("componentDidMount was called");
   }
 
   handleCarouselPlay = () => { 
@@ -112,7 +113,10 @@ class App extends Component {
   };
 
   handleCreateFormSubmit = (slide) => {
+    //slide.preventDefault();
     this.createSlide(slide);
+    console.log("In handleCreateFormSubmit");
+    
   };
 
   validate = () => {
@@ -152,6 +156,8 @@ class App extends Component {
     if (this.validate()) return;
 
     const ns = this.newSlide(slide);
+    // console.log(this.state.slides);
+    // console.log('ns: ', ns);
     this.setState({
       slides: this.state.slides.concat(ns),
       fields: {
@@ -164,6 +170,10 @@ class App extends Component {
         height: '',
       }
     });
+    
+    // const test = this.state.slides.concat(ns);
+    // const str2 = JSON.stringify(test, null, 4);
+    // console.log(str2);
   };
     
 
@@ -175,6 +185,7 @@ class App extends Component {
     fieldErrors[name] = error;
 
     this.setState({fields, fieldErrors});
+    //console.log(this.state.fields);
   };
 
 

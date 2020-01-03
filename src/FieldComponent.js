@@ -16,7 +16,7 @@ class FieldComponent extends React.Component {
     error: false
   };
 
-  getDerivedStateFromProps(nextProps) {
+  static getDerivedStateFromProps(nextProps) {
     return {value: nextProps.value}
   }
 
@@ -31,7 +31,7 @@ class FieldComponent extends React.Component {
   };
 
   labelStyle = {
-    marginRight: '1%',
+    marginRight: '0.5%',
   };
 
   render() {
