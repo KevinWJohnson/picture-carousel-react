@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
@@ -10,9 +9,8 @@ const DATA_FILE = path.join(__dirname, 'data.json');
 console.log("DATA_FILE: ", DATA_FILE);
 console.log("IN SERVER");
 
-app.set('port', (process.env.PORT || 3000));
+app.set('port', (process.env.API_PORT || 3001));
 
-//app.use('/', express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -82,7 +80,4 @@ app.delete('/api/slides', (req, res) => {
   });
 });
 
-
-app.listen(app.get('port'), () => {
-  console.log(`Find the server at: http://localhost:${app.get('port')}/`); // eslint-disable-line no-console
-});
+export default app;
