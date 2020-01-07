@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 //import logo from './logo.svg';
 import './App.css';
 
-import { PicGrp1 } from './picturesGroup1.js';
+//import { PicGrp1 } from './picturesGroup1.js';
 import uuid from 'uuid';
 import PicCarousel from './PicCarousel';
 import TopBar from './TopBar';
@@ -40,7 +40,12 @@ class App extends Component {
 
   loadSlidesFromServer = () => {
     Client.getSlides((serverSlides) => (
-      this.setState({ slides: serverSlides })
+      this.setState({ slides: serverSlides }, () => {
+        const test = this.state.slides;
+        const str2 = JSON.stringify(test, null, 4);
+        console.log("Slides Loaded");
+        console.log(str2);
+      })
       )
     );
   };
@@ -123,7 +128,7 @@ class App extends Component {
   handleCreateFormSubmit = (slide) => {
     //slide.preventDefault();
     this.createSlide(slide);
-    console.log("In handleCreateFormSubmit");
+    //console.log("In handleCreateFormSubmit");
     
   };
 

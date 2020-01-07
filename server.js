@@ -7,10 +7,12 @@ const path = require('path');
 const app = express();
 
 const DATA_FILE = path.join(__dirname, 'data.json');
+console.log("DATA_FILE: ", DATA_FILE);
+console.log("IN SERVER");
 
 app.set('port', (process.env.PORT || 3000));
 
-app.use('/', express.static(path.join(__dirname, 'public')));
+//app.use('/', express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -49,36 +51,6 @@ app.post('/api/slides', (req, res) => {
   });
 });
 
-app.post('/api/slides/start', (req, res) => {
-  fs.readFile(DATA_FILE, (err, data) => {
-    const slides = JSON.parse(data);
-    slides.forEach((slide) => {
-      if (slide.id === req.body.id) {
-        slide.runningSince = req.body.start;
-      }
-    });
-    fs.writeFile(DATA_FILE, JSON.stringify(slides, null, 4), () => {
-      res.json({});
-    });
-  });
-});
-
-app.post('/api/slides/stop', (req, res) => {
-  fs.readFile(DATA_FILE, (err, data) => {
-    const slides = JSON.parse(data);
-    slides.forEach((slide) => {
-      if (slide.id === req.body.id) {
-        const delta = req.body.stop - slide.runningSince;
-        slide.elapsed += delta;
-        slide.runningSince = null;
-      }
-    });
-    fs.writeFile(DATA_FILE, JSON.stringify(slides, null, 4), () => {
-      res.json({});
-    });
-  });
-});
-
 app.put('/api/slides', (req, res) => {
   fs.readFile(DATA_FILE, (err, data) => {
     const slides = JSON.parse(data);
@@ -110,11 +82,6 @@ app.delete('/api/slides', (req, res) => {
   });
 });
 
-app.get('/molasses', (_, res) => {
-  setTimeout(() => {
-    res.end();
-  }, 5000);
-});
 
 app.listen(app.get('port'), () => {
   console.log(`Find the server at: http://localhost:${app.get('port')}/`); // eslint-disable-line no-console
