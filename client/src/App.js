@@ -41,10 +41,10 @@ class App extends Component {
   loadSlidesFromServer = () => {
     Client.getSlides((serverSlides) => (
       this.setState({ slides: serverSlides }, () => {
-        const test = this.state.slides;
-        const str2 = JSON.stringify(test, null, 4);
-        console.log("Slides Loaded");
-        console.log(str2);
+        // const test = this.state.slides;
+        // const str2 = JSON.stringify(test, null, 4);
+        // console.log("Slides Loaded");
+        // console.log(str2);
       })
       )
     );
@@ -123,6 +123,7 @@ class App extends Component {
     this.setState ({
       slides: this.state.slides.filter(s => s.id !== slideId),
     });
+    Client.deleteSlide( {id: slideId} );
   };
 
   handleCreateFormSubmit = (slide) => {
@@ -183,7 +184,7 @@ class App extends Component {
         height: '',
       }
     });
-    
+    Client.createSlide(ns);
     // const test = this.state.slides.concat(ns);
     // const str2 = JSON.stringify(test, null, 4);
     // console.log(str2);
