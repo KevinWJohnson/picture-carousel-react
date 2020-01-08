@@ -1,0 +1,13 @@
+#outer-ppBtns
+{
+    width:100%;
+    text-align: center;
+}
+.inner-ppBtns
+{
+    display: inline-block;
+}
+
+#buttonPlay, #buttonPause {
+    margin-right: 1%;
+  }

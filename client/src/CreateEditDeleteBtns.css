@@ -1,0 +1,13 @@
+#outer-cedBtns
+{
+    width:100%;
+    text-align: center;
+}
+.inner-cedBtns
+{
+    display: inline-block;
+}
+
+#buttonCreate, #buttonEdit, #buttonDelete {
+    margin-right: 1%;
+  }

@@ -1,5 +1,6 @@
 import React from 'react';
 import {IoMdAdd, IoMdCreate, IoIosTrash} from 'react-icons/io';
+import './CreateEditDeleteBtns.css';
 
 const CreateEditDeleteBtns = (props) => {
 
@@ -16,30 +17,39 @@ const CreateEditDeleteBtns = (props) => {
   };
 
   return (
-  <div>
-    <button
-          name='button-create'
-          onClick={handleCreate}
-        >
-          Create Slide
-          <span>  <IoMdAdd /></span>
-    </button>
+  <div id='outer-cedBtns'>
+    <div className='inner-cedBtns'>
+      <button
+            id='buttonCreate'
+            name='button-create'
+            onClick={handleCreate}
+          >
+            Create Slide
+            <span>  <IoMdAdd /></span>
+      </button>
+    </div>
     {/* <div className="divider"></div> */}
-    <button
-          name='button-edit'
-          onClick={handleEdit}
-        >
-          Edit Slide
-          <span>   <IoMdCreate style={{verticalAlign: 'middle'}} /></span>
-    </button>
+    <div className='inner-cedBtns'>
+      <button
+            id='buttonEdit'
+            name='button-edit'
+            onClick={handleEdit}
+          >
+            Edit Slide
+            <span>   <IoMdCreate style={{verticalAlign: 'middle'}} /></span>
+      </button>
+    </div>
     {/* <div className="divider"></div> */}
-    <button
-          name='button-delete'
-          onClick={handleDelete}
-        >
-          Delete Slide
-          <span>  <IoIosTrash /></span>
-    </button>
+    <div className='inner-cedBtns'>
+      <button
+            id='buttonDelete'
+            name='button-delete'
+            onClick={handleDelete}
+          >
+            Delete Slide
+            <span>  <IoIosTrash /></span>
+      </button>
+    </div>
   </div>
  );
 }

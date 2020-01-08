@@ -1,8 +1,6 @@
 import React from 'react';
-
 import Field from './FieldComponent.js';
-
-//const Field = require('./FieldComponent.js');
+import './FieldForm.css';
 
 
 const FieldForm = (props) => {
@@ -24,7 +22,6 @@ const onFormSubmit = () => {
 const onInputChange = ({name, value, error}) => {
   props.onChange({name, value, error});
 };
-
 
     return (
       <div>
@@ -90,8 +87,9 @@ const onInputChange = ({name, value, error}) => {
           />
            
           <br />
+          <input type="submit" id="buttonSubmit" value="Submit" disabled={props.validate()} />
+          <input type="button" id="buttonCancel" name="cancelForm" value="Cancel" onClick={this.cancelForm}></input>
 
-          <input type="submit" disabled={props.validate()} />
         </form>
 
         <div>

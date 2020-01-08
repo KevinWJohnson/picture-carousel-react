@@ -1,5 +1,6 @@
 import React from 'react';
 import {IoIosPlay, IoIosPause} from 'react-icons/io';
+import './PlayPauseBtns.css';
 
 const PlayPauseBtns = (props) => {
 
@@ -12,22 +13,28 @@ const PlayPauseBtns = (props) => {
   };
 
   return (
-  <div>
-    <button
-          name='button-play'
-          onClick={handlePlay}
-        >
-          Cycle Through Slides
-          <span>  <IoIosPlay /></span>
-    </button>
+  <div id='outer-ppBtns'>
+    <div className='inner-ppBtns'>
+      <button
+            id='buttonPlay'
+            name='button-play'
+            onClick={handlePlay}
+          >
+            Cycle Through Slides
+            <span>  <IoIosPlay /></span>
+      </button>
+    </div>
     {/* <div className="divider"></div> */}
-    <button
-          name='button-pause'
-          onClick={handlePause}
-        >
-          Pause Slide
-          <span>  <IoIosPause /></span>
-    </button>
+    <div className='inner-ppBtns'>
+      <button
+            id='buttonPause'
+            name='button-pause'
+            onClick={handlePause}
+          >
+            Pause Slide
+            <span>  <IoIosPause /></span>
+      </button>
+    </div>
   </div>
  );
 }
