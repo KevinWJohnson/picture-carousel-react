@@ -29,7 +29,7 @@ const onInputChange = ({name, value, error}) => {
     return (
       <div>
         <h1>Picture Input Form</h1>
-        {console.log(JSON.stringify(props.slides, null, 4))}
+        {/* {console.log(JSON.stringify(props.slides, null, 4))} */}
 
         <form onSubmit={onFormSubmit}>
 
