@@ -77,3 +77,6 @@ typings/
 
 # React build
 client/build
+
+# React Carousel Slide Data
+slide-data.json

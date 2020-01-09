@@ -5,7 +5,7 @@ const path = require('path');
 
 const app = express();
 
-const DATA_FILE = path.join(__dirname, 'data.json');
+const DATA_FILE = path.join(__dirname, 'slide-data.json');
 // console.log("DATA_FILE: ", DATA_FILE);
 // console.log("IN SERVER");
 
