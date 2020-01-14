@@ -249,7 +249,7 @@ class App extends Component {
           </div>
 
           <Route
-            path='/images'
+            path='/createSlide'
             render={(routeProps) => <CreateSlide {...routeProps}
                                     onSubmit={this.handleCreateFormSubmit}
                                     onChange={this.onInputChange}
