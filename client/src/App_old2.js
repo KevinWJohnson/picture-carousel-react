@@ -10,8 +10,10 @@ import PlayPauseBtns from './PlayPauseBtns';
 import CreateEditDeleteBtns from './CreateEditDeleteBtns';
 import CreateSlide from './CreateSlide';
 import Client from './Client';
+import { Router } from 'express';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import FieldForm from './FieldForm';
+
 
 
 
@@ -248,8 +250,8 @@ class App extends Component {
             </PicCarousel>
           </div>
 
-          <Route
-            path='/images'
+          {/* <Route
+            path='/createSlide'
             render={(routeProps) => <CreateSlide {...routeProps}
                                     onSubmit={this.handleCreateFormSubmit}
                                     onChange={this.onInputChange}
@@ -257,9 +259,9 @@ class App extends Component {
                                     slides={this.state.slides}
                                     validate={this.validate}
                                     />}
-            />
+            /> */}
 
-          {/* <div className="inputForm">
+            <div className="inputForm">
               <FieldForm
               onSubmit={this.handleCreateFormSubmit}
               onChange={this.onInputChange}
@@ -268,12 +270,10 @@ class App extends Component {
               validate={this.validate}
               >
               </FieldForm>
-          </div> */}
+          </div>
            
         </div>
-
       
-
     );
   }
 }

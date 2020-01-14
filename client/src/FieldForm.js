@@ -23,6 +23,8 @@ const onInputChange = ({name, value, error}) => {
   props.onChange({name, value, error});
 };
 
+const submitText = props.fields.id ? 'Update' : 'Create';
+
     return (
       <div>
         <h1>Picture Input Form</h1>
@@ -87,7 +89,7 @@ const onInputChange = ({name, value, error}) => {
           />
            
           <br />
-          <input type="submit" id="buttonSubmit" value="Submit" disabled={props.validate()} />
+          <input type="submit" id="buttonSubmit" value={submitText} disabled={props.validate()} />
           <input type="button" id="buttonCancel" name="cancelForm" value="Cancel" onClick={this.cancelForm}></input>
 
         </form>

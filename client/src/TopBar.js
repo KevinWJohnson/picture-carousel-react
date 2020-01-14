@@ -44,6 +44,9 @@ const TopBar = (props) => {
             <NavItem>
               <NavLink href="/admin/">Admin</NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink href="/images/">Create Slide</NavLink>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
