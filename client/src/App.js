@@ -32,6 +32,7 @@ class App extends Component {
       height: '',
     },
     fieldErrors: {},
+    editFormOpen: true,
   };
 
   componentDidMount() {
@@ -203,6 +204,29 @@ class App extends Component {
     //console.log(this.state.fields);
   };
 
+  
+
+  redirectPath = (prevPath) => { 
+    const pathname = prevPath; 
+    return pathname || '/'; 
+  };
+
+
+  handleCancelForm = (prevPath) => {
+    <Redirect to={this.redirectPath(prevPath)} />
+    this.setState({
+      fields: {
+        title: '',
+        author: '',
+        period: '',
+        imageUrl: '',
+        rotate: '',
+        width: '',
+        height: '',
+      }
+    });
+  };
+
 
   render() {
     return (
@@ -256,6 +280,7 @@ class App extends Component {
                                     fields={this.state.fields}
                                     slides={this.state.slides}
                                     validate={this.validate}
+                                    onCancel={this.handleCancelForm}
                                     />}
             />
 

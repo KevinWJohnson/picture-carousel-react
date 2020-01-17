@@ -6,8 +6,8 @@ const path = require('path');
 const app = express();
 
 const DATA_FILE = path.join(__dirname, 'slide-data.json');
-console.log("DATA_FILE: ", DATA_FILE);
-console.log("IN SERVER");
+//console.log("DATA_FILE: ", DATA_FILE);
+//console.log("IN SERVER");
 
 app.set('port', (process.env.API_PORT || 3001));
 

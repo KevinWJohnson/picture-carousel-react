@@ -19,6 +19,10 @@ const onFormSubmit = () => {
   });
 };
 
+const handleCancel = (prevPath) => {
+  props.onCancel(props.location.pathname);
+};
+
 const onInputChange = ({name, value, error}) => {
   props.onChange({name, value, error});
 };
@@ -90,7 +94,7 @@ const submitText = props.fields.id ? 'Update' : 'Create';
            
           <br />
           <input type="submit" id="buttonSubmit" value={submitText} disabled={props.validate()} />
-          <input type="button" id="buttonCancel" name="cancelForm" value="Cancel" onClick={this.cancelForm}></input>
+          <input type="button" id="buttonCancel" name="cancelForm" value="Cancel" onClick={handleCancel}></input>
 
         </form>
 
