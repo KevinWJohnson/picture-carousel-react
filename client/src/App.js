@@ -204,16 +204,18 @@ class App extends Component {
     //console.log(this.state.fields);
   };
 
-  
-
-  redirectPath = (prevPath) => { 
-    const pathname = prevPath; 
-    return pathname || '/'; 
+  redirectPath = () => {
+    console.log("this.props.location.state", this.props.location.state);
+    const locationState = this.props.location.state;
+    const pathname = (
+      locationState && locationState.from && locationState.from.pathname
+    );
+    return pathname || '/admin';
   };
 
 
-  handleCancelForm = (prevPath) => {
-    <Redirect to={this.redirectPath(prevPath)} />
+  handleCancelForm = () => {
+    <Redirect to={this.redirectPath()} />
     this.setState({
       fields: {
         title: '',
@@ -273,7 +275,7 @@ class App extends Component {
           </div>
 
           <Route
-            path='/createSlide'
+            path='/admin'
             render={(routeProps) => <CreateSlide {...routeProps}
                                     onSubmit={this.handleCreateFormSubmit}
                                     onChange={this.onInputChange}

@@ -19,8 +19,8 @@ const onFormSubmit = () => {
   });
 };
 
-const handleCancel = (prevPath) => {
-  props.onCancel(props.location.pathname);
+const handleCancel = () => {
+  props.onCancel();
 };
 
 const onInputChange = ({name, value, error}) => {

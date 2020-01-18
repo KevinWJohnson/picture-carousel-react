@@ -12,6 +12,9 @@ import {
   DropdownMenu,
   DropdownItem } from 'reactstrap';
 
+import { NavLink as RRNavLink } from 'react-router-dom';
+
+
 const TopBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -20,7 +23,7 @@ const TopBar = (props) => {
   return (
     <div>
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">Art Class</NavbarBrand>
+        <NavbarBrand tag={RRNavLink} to="/">Art Class</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
@@ -42,10 +45,11 @@ const TopBar = (props) => {
               </DropdownMenu>
             </UncontrolledDropdown>
             <NavItem>
-              <NavLink href="/admin/">Admin</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/createSlide/">Create Slide</NavLink>
+              <NavLink tag={RRNavLink}
+              to={{
+                  pathname: '/admin',
+                  state: { from: props.location },
+              }}  >Admin</NavLink>
             </NavItem>
           </Nav>
         </Collapse>
