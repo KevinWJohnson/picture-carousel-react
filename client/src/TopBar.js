@@ -20,6 +20,7 @@ const TopBar = (props) => {
 
   const toggle = () => setIsOpen(!isOpen);
 
+
   return (
     <div>
       <Navbar color="light" light expand="md">

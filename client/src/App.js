@@ -204,18 +204,9 @@ class App extends Component {
     //console.log(this.state.fields);
   };
 
-  redirectPath = () => {
-    console.log("this.props.location.state", this.props.location.state);
-    const locationState = this.props.location.state;
-    const pathname = (
-      locationState && locationState.from && locationState.from.pathname
-    );
-    return pathname || '/admin';
-  };
 
-
-  handleCancelForm = () => {
-    <Redirect to={this.redirectPath()} />
+  handleCancelForm = (redirPath) => {
+    <Redirect to={redirPath} />
     this.setState({
       fields: {
         title: '',
@@ -235,7 +226,8 @@ class App extends Component {
           <div className="AppContainer">
 
           <div className="topbar">
-          <TopBar></TopBar>
+          <TopBar location={this.props.location} >
+          </TopBar>
           </div>
 
           <div className="BtnContainer">
