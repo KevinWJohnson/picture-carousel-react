@@ -9,8 +9,9 @@ import TopBar from './TopBar';
 import PlayPauseBtns from './PlayPauseBtns';
 import CreateEditDeleteBtns from './CreateEditDeleteBtns';
 import CreateSlide from './CreateSlide';
+import EditSlide from './EditSlide';
 import Client from './Client';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 import FieldForm from './FieldForm';
 
 
@@ -32,7 +33,9 @@ class App extends Component {
       height: '',
     },
     fieldErrors: {},
-    editFormOpen: true,
+    editFormOpen: false,
+    createFormOpen: false,
+    cancelForm: false,
   };
 
   componentDidMount() {
@@ -61,10 +64,18 @@ class App extends Component {
   };
 
   handleCarouselCreate = () => { 
+    console.log("In handleCarouselCreate");
+    this.setState( { createFormOpen: true } );
+    this.setState( { cancelForm: false } );
+    this.props.history.push('/admin/createSlide');
+    
     
   };
 
   handleCarouselEdit = () => { 
+    this.setState( { editFormOpen: true } );
+    this.setState( { cancelForm: false } );
+    this.props.history.push('/admin/editSlide');
     
   };
 
@@ -132,6 +143,7 @@ class App extends Component {
     //slide.preventDefault();
     this.createSlide(slide);
     //console.log("In handleCreateFormSubmit");
+    this.setState( { createFormOpen: false } );
     
   };
 
@@ -157,7 +169,7 @@ class App extends Component {
       title: attrs.title || 'Title',
       author: attrs.author || 'Author',
       period: attrs.period || 'Period',
-      id: uuid.v4(),
+      id: attrs.id ? attrs.id : uuid.v4(),
       imageUrl: attrs.imageUrl || 'ImageUrl',
       rotate: attrs.rotate || 'Rotate',
       width: attrs.width || 'Width',
@@ -205,8 +217,9 @@ class App extends Component {
   };
 
 
-  handleCancelForm = (redirPath) => {
-    <Redirect to={redirPath} />
+  handleCancelForm = () => {
+    this.setState( { cancelForm: true } );
+
     this.setState({
       fields: {
         title: '',
@@ -218,6 +231,14 @@ class App extends Component {
         height: '',
       }
     });
+  };
+
+  handleEditFormSubmit = (slide) => {
+    //slide.preventDefault();
+    //this.createSlide(slide);
+    //console.log("In handleCreateFormSubmit");
+    this.setState( { editFormOpen: false } );
+    
   };
 
 
@@ -267,7 +288,7 @@ class App extends Component {
           </div>
 
           <Route
-            path='/admin'
+            path='/admin/createSlide'
             render={(routeProps) => <CreateSlide {...routeProps}
                                     onSubmit={this.handleCreateFormSubmit}
                                     onChange={this.onInputChange}
@@ -275,20 +296,25 @@ class App extends Component {
                                     slides={this.state.slides}
                                     validate={this.validate}
                                     onCancel={this.handleCancelForm}
+                                    createFormOpen={this.state.createFormOpen}
+                                    cancelForm={this.state.cancelForm}
                                     />}
             />
 
-          {/* <div className="inputForm">
-              <FieldForm
-              onSubmit={this.handleCreateFormSubmit}
-              onChange={this.onInputChange}
-              fields={this.state.fields}
-              slides={this.state.slides}
-              validate={this.validate}
-              >
-              </FieldForm>
-          </div> */}
-           
+          <Route
+            path='/admin/editSlide'
+            render={(routeProps) => <EditSlide {...routeProps}
+                                    onSubmit={this.handleEditFormSubmit}
+                                    onChange={this.onInputChange}
+                                    fields={this.state.fields}
+                                    slides={this.state.slides}
+                                    validate={this.validate}
+                                    onCancel={this.handleCancelForm}
+                                    editFormOpen={this.state.editFormOpen}
+                                    cancelForm={this.state.cancelForm}
+                                    />}
+            />
+
         </div>
 
       
@@ -297,4 +323,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

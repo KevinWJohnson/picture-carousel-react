@@ -1,6 +1,7 @@
 import React from 'react';
 import {IoMdAdd, IoMdCreate, IoIosTrash} from 'react-icons/io';
 import './CreateEditDeleteBtns.css';
+//import { Redirect } from 'react-router-dom';
 
 const CreateEditDeleteBtns = (props) => {
 

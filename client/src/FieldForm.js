@@ -31,7 +31,7 @@ const submitText = props.fields.id ? 'Update' : 'Create';
 
     return (
       <div>
-        <h1>Picture Input Form</h1>
+        {/* <h1>Picture Input Form</h1> */}
         {/* {console.log(JSON.stringify(props.slides, null, 4))} */}
 
         <form onSubmit={onFormSubmit}>

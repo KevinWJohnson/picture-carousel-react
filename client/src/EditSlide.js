@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import FieldForm from './FieldForm';
 
 
-class CreateSlide extends React.Component {
+class EditSlide extends React.Component {
 
   
   redirectPath = () => {
@@ -15,14 +15,14 @@ class CreateSlide extends React.Component {
   };
   
     render() {
-      if ( !this.props.createFormOpen || this.props.cancelForm ) {
+      if ( !this.props.editFormOpen || this.props.cancelForm ) {
         return (
           <Redirect to={this.redirectPath()} />
         );
       } else {
         return (
           <div className="inputForm">
-            <h1>Create Picture Input Form</h1>
+            <h1>Edit Picture Input Form</h1>
             <FieldForm
             onSubmit={this.props.onSubmit}
             onChange={this.props.onChange}
@@ -39,4 +39,4 @@ class CreateSlide extends React.Component {
   }
   
 
-export default CreateSlide
+export default EditSlide
