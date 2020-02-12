@@ -38,9 +38,11 @@ class App extends Component {
     cancelForm: false,
   };
 
-  componentDidMount() {
+  componentDidMount = () => {
+    console.log("currentIndex - start of componentDidMount", this.state.currentIndex);
     this.loadSlidesFromServer();
     setInterval(this.loadSlidesFromServer, 5000);
+    console.log("currentIndex - start of componentDidMount", this.state.currentIndex);
   }
 
   loadSlidesFromServer = () => {
@@ -64,7 +66,7 @@ class App extends Component {
   };
 
   handleCarouselCreate = () => { 
-    console.log("In handleCarouselCreate");
+    //console.log("In handleCarouselCreate");
     this.setState( { createFormOpen: true } );
     this.setState( { cancelForm: false } );
     this.props.history.push('/admin/createSlide');
@@ -73,10 +75,33 @@ class App extends Component {
   };
 
   handleCarouselEdit = () => { 
+    console.log("currentIndex - top of handleCarouselEdit", this.state.currentIndex);
     this.setState( { editFormOpen: true } );
     this.setState( { cancelForm: false } );
     this.props.history.push('/admin/editSlide');
     
+    this.handleCarouselPause();
+    this.handleCarouselCurrentIndex();
+    
+    const editSlideId = this.getSlideId();
+    const curSlide = this.state.slides.find(
+      (s) => s.id === editSlideId
+    );
+
+    this.setState({
+      fields: {
+        title: curSlide.title,
+        author: curSlide.author,
+        period: curSlide.period,
+        id: curSlide.id,
+        imageUrl: curSlide.imageUrl,
+        rotate: curSlide.rotate,
+        width: curSlide.width,
+        height: curSlide.height,
+      }
+    });
+    
+    console.log("currentIndex - end of handleCarouselEdit", this.state.currentIndex);
   };
 
   handleCarouselDelete = () => {
@@ -88,14 +113,23 @@ class App extends Component {
     if (this.isFirstSlide()) {
       this.setState({currentIndex: 0});
     } else {
-      this.setState({currentIndex: this.state.currentIndex - 1});
+      this.setState((state) => {
+        return {currentIndex: this.state.currentIndex - 1};
+      });
     }
     
   };
 
   handleCarouselCurrentIndex = (currentSlideIndex) => { 
     this.setState({currentIndex: currentSlideIndex});
-    
+    console.log("currentIndex in handleCarouselCurrentIndex ", this.state.currentIndex);
+     
+  };
+
+  componentDidUpdate = () => {
+    console.log("currentIndex in componentDidUpdate ", this.state.currentIndex);
+    console.log("title:", this.state.fields.title);
+    console.log("height:", this.state.fields.height);
   };
 
   getSlideId = () => {
@@ -192,6 +226,7 @@ class App extends Component {
         title: '',
         author: '',
         period: '',
+        id: '',
         imageUrl: '',
         rotate: '',
         width: '',
@@ -225,6 +260,7 @@ class App extends Component {
         title: '',
         author: '',
         period: '',
+        id: '',
         imageUrl: '',
         rotate: '',
         width: '',
@@ -233,16 +269,39 @@ class App extends Component {
     });
   };
 
-  handleEditFormSubmit = (slide) => {
-    //slide.preventDefault();
-    //this.createSlide(slide);
-    //console.log("In handleCreateFormSubmit");
+  editSlide = (attrs) => {
+    this.setState({
+      slides: this.state.slides.map((slide) => {
+        if (slide.id === attrs.id) {
+          return Object.assign({}, slide, {
+            title: attrs.title,
+            author: attrs.author,
+            period: attrs.period,
+            id: attrs.id,
+            imageUrl: attrs.imageUrl,
+            rotate: attrs.rotate,
+            width: attrs.width,
+            height: attrs.height,
+          });
+        } else {
+          return slide;
+        }
+      }),
+    });
+
+  };
+  
+  handleEditFormSubmit = (attrs) => {
     this.setState( { editFormOpen: false } );
+    this.editSlide(attrs);
     
   };
 
 
   render() {
+    console.log("currentIndex in render", this.state.currentIndex);
+    console.log("editFormOpen in render", this.state.editFormOpen);
+    console.log("intervalValue in render", this.state.intervalValue);
     return (
           <div className="AppContainer">
 

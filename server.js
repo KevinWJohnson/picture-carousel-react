@@ -55,7 +55,13 @@ app.put('/api/slides', (req, res) => {
     slides.forEach((slide) => {
       if (slide.id === req.body.id) {
         slide.title = req.body.title;
-        slide.project = req.body.project;
+        slide.author = req.body.author;
+        slide.period = req.body.period;
+        slide.id = req.body.id;
+        slide.imageUrl = req.body.imageUrl;
+        slide.rotate = req.body.rotate;
+        slide.width = req.body.width;
+        slide.height = req.body.height;
       }
     });
     fs.writeFile(DATA_FILE, JSON.stringify(slides, null, 4), () => {
