@@ -16,20 +16,17 @@ import {
       if (animating) return;
       const nextIndex = props.currentIndex === items.length - 1 ? 0 : props.currentIndex + 1;
       props.handleCurrentIndex(nextIndex);
-      console.log("In next - nextIndex:", nextIndex);
     }
   
     const previous = () => {
       if (animating) return;
       const nextIndex = props.currentIndex === 0 ? items.length - 1 : props.currentIndex - 1;
       props.handleCurrentIndex(nextIndex);
-      console.log("In previous - nextIndex:", nextIndex);
     }
   
     const goToIndex = (newIndex) => {
       if (animating) return;
       props.handleCurrentIndex(newIndex);
-      console.log("In goToIndex - newIndex:", newIndex);
     }
   
     const slidesOfPics = items.map((item) => {
@@ -51,7 +48,7 @@ import {
         </CarouselItem>
       );
     });
-    console.log("In PicCarousel.js - props.currentIndex:", props.currentIndex);
+   
     return (
       <Carousel
         activeIndex={props.currentIndex}

@@ -39,10 +39,8 @@ class App extends Component {
   };
 
   componentDidMount = () => {
-    console.log("currentIndex - start of componentDidMount", this.state.currentIndex);
     this.loadSlidesFromServer();
     setInterval(this.loadSlidesFromServer, 5000);
-    console.log("currentIndex - start of componentDidMount", this.state.currentIndex);
   }
 
   loadSlidesFromServer = () => {
@@ -75,13 +73,11 @@ class App extends Component {
   };
 
   handleCarouselEdit = () => { 
-    console.log("currentIndex - top of handleCarouselEdit", this.state.currentIndex);
     this.setState( { editFormOpen: true } );
     this.setState( { cancelForm: false } );
     this.props.history.push('/admin/editSlide');
     
     this.handleCarouselPause();
-    this.handleCarouselCurrentIndex();
     
     const editSlideId = this.getSlideId();
     const curSlide = this.state.slides.find(
@@ -101,12 +97,10 @@ class App extends Component {
       }
     });
     
-    console.log("currentIndex - end of handleCarouselEdit", this.state.currentIndex);
   };
 
   handleCarouselDelete = () => {
     this.handleCarouselPause();
-    this.handleCarouselCurrentIndex();
     const deleteSlideId = this.getSlideId();
     this.deleteSlide(deleteSlideId);
     // Adjusting current slide index if the slide deleted is the last slide.
@@ -122,19 +116,11 @@ class App extends Component {
 
   handleCarouselCurrentIndex = (currentSlideIndex) => { 
     this.setState({currentIndex: currentSlideIndex});
-    console.log("currentIndex in handleCarouselCurrentIndex ", this.state.currentIndex);
      
-  };
-
-  componentDidUpdate = () => {
-    console.log("currentIndex in componentDidUpdate ", this.state.currentIndex);
-    console.log("title:", this.state.fields.title);
-    console.log("height:", this.state.fields.height);
   };
 
   getSlideId = () => {
     this.handleCarouselPause();
-    this.handleCarouselCurrentIndex();
     let currentId = 0;
     for (let i = 0; i < this.state.slides.length; i++) {
         if (this.state.currentIndex === i) {
@@ -148,7 +134,6 @@ class App extends Component {
 
   isLastSlide = () => {
     this.handleCarouselPause();
-    this.handleCarouselCurrentIndex();
       if (this.state.currentIndex === this.state.slides.length - 1) {
         return true;
       } else {
@@ -158,7 +143,6 @@ class App extends Component {
 
   isFirstSlide = () => {
     this.handleCarouselPause();
-    this.handleCarouselCurrentIndex();
       if (this.state.currentIndex === 0) {
         return true;
       } else {
@@ -289,6 +273,7 @@ class App extends Component {
       }),
     });
 
+    Client.updateSlide(attrs);
   };
   
   handleEditFormSubmit = (attrs) => {
@@ -299,9 +284,6 @@ class App extends Component {
 
 
   render() {
-    console.log("currentIndex in render", this.state.currentIndex);
-    console.log("editFormOpen in render", this.state.editFormOpen);
-    console.log("intervalValue in render", this.state.intervalValue);
     return (
           <div className="AppContainer">
 
