@@ -71,6 +71,8 @@ app.put('/api/slides', (req, res) => {
 });
 
 app.delete('/api/slides', (req, res) => {
+  console.log("Inside app.delete");
+  console.log("Slide Id to Delete: " + req.body.id);
   fs.readFile(DATA_FILE, (err, data) => {
     let slides = JSON.parse(data);
     slides = slides.reduce((memo, slide) => {
