@@ -11,7 +11,7 @@ import CreateEditDeleteBtns from './CreateEditDeleteBtns';
 import CreateSlide from './CreateSlide';
 import EditSlide from './EditSlide';
 import Client from './Client';
-import AxiosClient from './ClientAxios';
+import ClientAxios from './ClientAxios';
 import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 import FieldForm from './FieldForm';
 
@@ -44,9 +44,9 @@ class App extends Component {
     setInterval(this.loadSlidesFromServer, 5000);
   }
 
-  loadSlidesFromServer = () => {
-    AxiosClient.getSlides((serverSlides) => (
-      this.setState({ slides: serverSlides }, () => {
+  loadSlidesFromServer = () => {  
+    ClientAxios.getSlides((serverSlides) => (
+      this.setState({ slides: serverSlides.data }, () => {
         // const test = this.state.slides;
         // const str2 = JSON.stringify(test, null, 4);
         // console.log("Slides Loaded");
@@ -155,7 +155,7 @@ class App extends Component {
     this.setState ({
       slides: this.state.slides.filter(s => s.id !== slideId),
     });
-    AxiosClient.deleteSlide( {id: slideId} );
+    ClientAxios.deleteSlide( {id: slideId} );
   };
 
   handleCreateFormSubmit = (slide) => {
@@ -218,7 +218,7 @@ class App extends Component {
         height: '',
       }
     });
-    AxiosClient.createSlide(ns);
+    ClientAxios.createSlide(ns);
     // const test = this.state.slides.concat(ns);
     // const str2 = JSON.stringify(test, null, 4);
     // console.log(str2);
@@ -274,7 +274,7 @@ class App extends Component {
       }),
     });
 
-    AxiosClient.updateSlide(attrs);
+    ClientAxios.updateSlide(attrs);
   };
   
   handleEditFormSubmit = (attrs) => {
