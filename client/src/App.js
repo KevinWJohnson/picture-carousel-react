@@ -11,6 +11,7 @@ import CreateEditDeleteBtns from './CreateEditDeleteBtns';
 import CreateSlide from './CreateSlide';
 import EditSlide from './EditSlide';
 import Client from './Client';
+import AxiosClient from './ClientAxios';
 import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 import FieldForm from './FieldForm';
 
@@ -44,7 +45,7 @@ class App extends Component {
   }
 
   loadSlidesFromServer = () => {
-    Client.getSlides((serverSlides) => (
+    AxiosClient.getSlides((serverSlides) => (
       this.setState({ slides: serverSlides }, () => {
         // const test = this.state.slides;
         // const str2 = JSON.stringify(test, null, 4);
@@ -154,7 +155,7 @@ class App extends Component {
     this.setState ({
       slides: this.state.slides.filter(s => s.id !== slideId),
     });
-    Client.deleteSlide( {id: slideId} );
+    AxiosClient.deleteSlide( {id: slideId} );
   };
 
   handleCreateFormSubmit = (slide) => {
@@ -217,7 +218,7 @@ class App extends Component {
         height: '',
       }
     });
-    Client.createSlide(ns);
+    AxiosClient.createSlide(ns);
     // const test = this.state.slides.concat(ns);
     // const str2 = JSON.stringify(test, null, 4);
     // console.log(str2);
@@ -273,7 +274,7 @@ class App extends Component {
       }),
     });
 
-    Client.updateSlide(attrs);
+    AxiosClient.updateSlide(attrs);
   };
   
   handleEditFormSubmit = (attrs) => {
