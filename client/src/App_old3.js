@@ -297,25 +297,21 @@ class App extends Component {
             <div className="row">
               <div className="col">
                 <div className="playPauseBtns">
-                  <Route
-                  path='/carousel'
-                  render={(routeProps) => <PlayPauseBtns {...routeProps}
-                                          onPlay={this.handleCarouselPlay}
-                                          onPause={this.handleCarouselPause}
-                                          />}
-                  />
+                  <PlayPauseBtns
+                  onPlay={this.handleCarouselPlay}
+                  onPause={this.handleCarouselPause}
+                  >
+                  </PlayPauseBtns>
                 </div>
               </div>
               <div className="col">
                 <div className="createEditDeleteBtns">
-                  <Route
-                  path='/carousel/admin'
-                  render={(routeProps) => <CreateEditDeleteBtns {...routeProps}
-                                          onCreate={this.handleCarouselCreate}
-                                          onEdit={this.handleCarouselEdit}
-                                          onDelete={this.handleCarouselDelete}
-                                          />}
-                  />
+                  <CreateEditDeleteBtns
+                  onCreate={this.handleCarouselCreate}
+                  onEdit={this.handleCarouselEdit}
+                  onDelete={this.handleCarouselDelete}
+                  >
+                  </CreateEditDeleteBtns>
                 </div>
               </div>
             </div>
@@ -323,17 +319,14 @@ class App extends Component {
           <div className="clearFloat"></div>
 
           <div className="carousel">
+            <PicCarousel
+            intervalSet={this.state.intervalValue}
+            handleCurrentIndex={this.handleCarouselCurrentIndex}
+            currentIndex={this.state.currentIndex}
+            currentSlides={this.state.slides}
+            >
 
-            <Route
-            path='/carousel'
-            render={(routeProps) => <PicCarousel {...routeProps}
-                                    intervalSet={this.state.intervalValue}
-                                    handleCurrentIndex={this.handleCarouselCurrentIndex}
-                                    currentIndex={this.state.currentIndex}
-                                    currentSlides={this.state.slides}
-                                    />}
-            />
-
+            </PicCarousel>
           </div>
 
           <Route

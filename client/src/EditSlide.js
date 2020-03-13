@@ -11,7 +11,7 @@ class EditSlide extends React.Component {
     const pathname = (
       locationState && locationState.from && locationState.from.pathname
     );
-    return pathname || '/admin';
+    return pathname || '/carousel/admin/';
   };
   
     render() {

@@ -48,7 +48,7 @@ const TopBar = (props) => {
             <NavItem>
               <NavLink tag={RRNavLink}
               to={{
-                  pathname: '/admin',
+                  pathname: '/carousel/admin',
                   state: { from: props.location },
               }}  >Admin</NavLink>
             </NavItem>
