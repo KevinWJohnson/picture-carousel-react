@@ -1,18 +1,52 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { client } from '../Client';
+//import { client } from '../Client';
+import Field from './FieldComponent.js';
+import './FieldForm.css';
 
 class Login extends Component {
   state = {
     loginInProgress: false,
     shouldRedirect: false,
+    cancelLogin: false,
+    passwordName: '',
+    passwordInputted: '',
+    passwordError: ''
   };
 
+
+handleCancelLogin = () => {
+  this.setState( { cancelLogin: true } );
+
+  this.setState({passwordName: '',
+                passwordInputted: '', 
+                passwordError: ''});
+};
+
+
+onInputChange = ({name, value, error}) => {
+  this.setState({passwordName: name,
+                passwordInputted: value, 
+                passwordError: error});
+};
+
+// Form level validation
+validatePasswordExists = () => {
+  if (this.state.passwordInputted.length === 0) return true;
+  if (this.state.passwordInputted.length === 0) return true;
+  return false;
+};
+
   performLogin = () => {
-    this.setState({ loginInProgress: true });
-    client.login().then(() => (
-      this.setState({ shouldRedirect: true })
-    ));
+
+    if (this.validatePasswordExists()) return;
+
+    this.setState( { cancelLogin: false } );
+
+    // this.setState({ loginInProgress: true });
+    // client.login().then(() => (
+    //   this.setState({ shouldRedirect: true })
+    // ));
   };
 
   redirectPath = () => {
@@ -30,24 +64,25 @@ class Login extends Component {
       );
     } else {
       return (
-        <div className="container" id="loginSize">&nbsp;<br />
-        <div id="bg">
-         
+        <div className="container">
           <h1>Login</h1>
-          <form onSubmit={this.handleFormSubmit}>
-            <div className="form-group">
-              <label htmlFor="pwd"><strong>Password:</strong></label>
-              <input className="form-control"
-                placeholder="Password goes here..."
-                name="password"
-                type="password"
-                id="pwd"
-                onChange={this.handleChange} />
-            </div>
-            <button type="submit" className="btn btn-primary">Submit</button>
+
+          <form onSubmit={this.performLogin}>
+
+            <Field
+              placeholder="Password goes here..."
+              name="password"
+              value={this.props.passwordInputted}
+              onChange={this.onInputChange}
+              validate={val => (val ? false : 'Password Required')}
+            />
+
+            <br />
+            <input type="submit" id="buttonSubmit" value="Submit" disabled={this.validatePasswordExists()} />
+            <input type="button" id="buttonCancel" name="cancelForm" value="Cancel" onClick={this.handleCancelLogin}></input>
+
           </form>
         </div>
-      </div>
       );
     }
   }

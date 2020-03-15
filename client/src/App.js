@@ -10,6 +10,7 @@ import PlayPauseBtns from './PlayPauseBtns';
 import CreateEditDeleteBtns from './CreateEditDeleteBtns';
 import CreateSlide from './CreateSlide';
 import EditSlide from './EditSlide';
+import Login from './Login';
 import Client from './Client';
 import ClientAxios from './ClientAxios';
 import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
@@ -291,6 +292,10 @@ class App extends Component {
           <div className="topbar">
           <TopBar location={this.props.location} >
           </TopBar>
+          </div>
+
+          <div className="login">
+          <Route path='/login' component={Login} /> 
           </div>
 
           <div className="BtnContainer">

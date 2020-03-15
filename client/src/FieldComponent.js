@@ -37,7 +37,7 @@ class FieldComponent extends React.Component {
   render() {
     return (
       <div className="form-group">
-        <label style={this.labelStyle} htmlFor={this.state.value}>{this.props.placeholder}: </label>
+        <label style={this.labelStyle} htmlFor={this.state.value}>{this.props.name}: </label>
         <input
           placeholder={this.props.placeholder}
           value={this.state.value}
