@@ -3,8 +3,15 @@ import { Redirect } from 'react-router-dom';
 //import { client } from '../Client';
 import Field from './FieldComponent.js';
 import './FieldForm.css';
+import AuthService from './AuthService';
 
 class Login extends Component {
+  
+  constructor() {
+    super();
+    this.Auth = new AuthService();
+  }
+
   state = {
     loginInProgress: false,
     shouldRedirect: false,
@@ -37,11 +44,39 @@ validatePasswordExists = () => {
   return false;
 };
 
+
+
+handleFormSubmit = event => {
+  event.preventDefault();
+
+  this.Auth.login(this.state.email, this.state.password)
+    .then(res => {
+      // once user is logged in
+      // take them to their profile page
+      this.props.history.replace(`/profile/${res.data.user._id}`);
+    })
+    .catch(err => {
+      console.log(err.response);
+      alert(err.response.data.message)
+    });
+};
+
   performLogin = () => {
 
     if (this.validatePasswordExists()) return;
 
     this.setState( { cancelLogin: false } );
+
+    this.Auth.login(this.state.passwordInputted)
+    .then(res => {
+      // once user is logged in
+      // take them to the admin route
+      this.props.history.push('/carousel/admin');
+    })
+    .catch(err => {
+      console.log(err.response);
+      alert(err.response.data.message)
+    });
 
     // this.setState({ loginInProgress: true });
     // client.login().then(() => (
