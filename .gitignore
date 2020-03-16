@@ -80,3 +80,9 @@ client/build
 
 # React Carousel Slide Data
 slide-data.json
+
+# File to encrypt password
+encryptPassword.js
+
+# File to verify encrypt password
+verifyPassword.js
