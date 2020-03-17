@@ -11,6 +11,7 @@ import CreateEditDeleteBtns from './CreateEditDeleteBtns';
 import CreateSlide from './CreateSlide';
 import EditSlide from './EditSlide';
 import Login from './Login';
+import Logout from './Logout';
 import Client from './Client';
 import ClientAxios from './ClientAxios';
 import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
@@ -297,6 +298,10 @@ class App extends Component {
 
           <div className="login">
           <Route path='/login' component={Login} /> 
+          </div>
+
+          <div className="logout">
+          <Route path='/logout' component={Login} /> 
           </div>
 
           <div className="BtnContainer">

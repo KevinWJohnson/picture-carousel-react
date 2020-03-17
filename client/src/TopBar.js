@@ -45,13 +45,31 @@ const TopBar = (props) => {
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
-            <NavItem>
-              <NavLink tag={RRNavLink}
-              to={{
-                  pathname: '/carousel/admin',
-                  state: { from: props.location },
-              }}  >Admin</NavLink>
-            </NavItem>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Admin
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>
+                  <NavItem>
+                    <NavLink tag={RRNavLink}
+                    to={{
+                        pathname: '/login',
+                        state: { from: props.location },
+                    }}  >Login</NavLink>
+                  </NavItem>
+                </DropdownItem>
+                <DropdownItem>
+                  <NavItem>
+                    <NavLink tag={RRNavLink}
+                    to={{
+                        pathname: '/logout',
+                        state: { from: props.location },
+                    }}  >Logout</NavLink>
+                  </NavItem>
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
           </Nav>
         </Collapse>
       </Navbar>
