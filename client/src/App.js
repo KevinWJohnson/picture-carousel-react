@@ -15,6 +15,7 @@ import Client from './Client';
 import ClientAxios from './ClientAxios';
 import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 import FieldForm from './FieldForm';
+import PrivateRoute from './PrivateRoute';
 
 
 
@@ -313,7 +314,7 @@ class App extends Component {
               </div>
               <div className="col">
                 <div className="createEditDeleteBtns">
-                  <Route
+                  <PrivateRoute
                   path='/carousel/admin'
                   render={(routeProps) => <CreateEditDeleteBtns {...routeProps}
                                           onCreate={this.handleCarouselCreate}
@@ -341,7 +342,7 @@ class App extends Component {
 
           </div>
 
-          <Route
+          <PrivateRoute
             path='/carousel/admin/createSlide'
             render={(routeProps) => <CreateSlide {...routeProps}
                                     onSubmit={this.handleCreateFormSubmit}
@@ -355,7 +356,7 @@ class App extends Component {
                                     />}
             />
 
-          <Route
+          <PrivateRoute
             path='/carousel/admin/editSlide'
             render={(routeProps) => <EditSlide {...routeProps}
                                     onSubmit={this.handleEditFormSubmit}
