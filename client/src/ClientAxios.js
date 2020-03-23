@@ -1,6 +1,8 @@
   import axios from "axios"
   
   function getSlides(success) {
+    //console.log("Inside getSlides in ClientAxios.js");
+    //console.log("localStorage - id_token: " + localStorage.getItem('id_token'));
     return (axios.get('/api/slides')
       .then(success)
       .catch(function (error) {

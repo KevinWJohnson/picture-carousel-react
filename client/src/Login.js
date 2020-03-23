@@ -45,50 +45,40 @@ validatePasswordExists = () => {
 };
 
 
+performLogin = () => {
+  
+  if (this.validatePasswordExists()) return;
 
-handleFormSubmit = event => {
-  event.preventDefault();
+  this.setState( { cancelLogin: false } );
 
-  this.Auth.login(this.state.email, this.state.password)
-    .then(res => {
-      // once user is logged in
-      // take them to their profile page
-      this.props.history.replace(`/profile/${res.data.user._id}`);
-    })
-    .catch(err => {
-      console.log(err.response);
-      alert(err.response.data.message)
-    });
+  //this.setState({ shouldRedirect: true });
+
+  this.Auth.login(this.state.passwordInputted)
+  .then(res => {
+    this.setState({ shouldRedirect: true });
+    // once user is logged in
+    // take them to the admin route
+    console.log("shouldRedirect: " + this.state.shouldRedirect);
+    console.log("login response: " + JSON.stringify(res));
+    //this.props.history.push('/carousel/admin');
+  })
+  .catch(err => {
+    console.log(err.response);
+    alert(err.response.data.message)
+  });
+
+  // this.setState({ loginInProgress: true });
+  // client.login().then(() => (
+  //   this.setState({ shouldRedirect: true })
+  // ));
 };
-
-  performLogin = () => {
-
-    if (this.validatePasswordExists()) return;
-
-    this.setState( { cancelLogin: false } );
-
-    this.Auth.login(this.state.passwordInputted)
-    .then(res => {
-      // once user is logged in
-      // take them to the admin route
-      this.props.history.push('/carousel/admin');
-    })
-    .catch(err => {
-      console.log(err.response);
-      alert(err.response.data.message)
-    });
-
-    // this.setState({ loginInProgress: true });
-    // client.login().then(() => (
-    //   this.setState({ shouldRedirect: true })
-    // ));
-  };
 
   redirectPath = () => {
     const locationState = this.props.location.state;
     const pathname = (
       locationState && locationState.from && locationState.from.pathname
     );
+    //return '/carousel/admin';
     return pathname || '/carousel/admin';
   };
 
@@ -118,7 +108,7 @@ handleFormSubmit = event => {
 
           </form>
         </div>
-      );
+       );
     }
   }
 }

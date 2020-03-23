@@ -5,8 +5,9 @@ import axios from 'axios';
 export default class AuthService {
 
     login = (password) => {
+        //console.log("In AuthService.js in login!!!!!!!");
         // Get a token
-        return axios.post('api/login', {password: password})
+        return axios.post('/api/login', {password: password})
         .then(res => {
             // set the token once the user logs in
             this.setToken(res.data.token);
@@ -22,7 +23,7 @@ export default class AuthService {
     loggedIn() {
         // Checks if there is a saved token and it's still valid
         const token = this.getToken();
-        return !!token && !this.isTokenExpired(token) // handwaiving here
+        return !!token && !this.isTokenExpired(token)
     }
 
     isTokenExpired(token) {

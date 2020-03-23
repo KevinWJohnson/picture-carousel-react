@@ -301,7 +301,7 @@ class App extends Component {
           </div>
 
           <div className="logout">
-          <Route path='/logout' component={Login} /> 
+          <Route path='/logout' component={Logout} /> 
           </div>
 
           <div className="BtnContainer">

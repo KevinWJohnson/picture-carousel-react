@@ -29,36 +29,28 @@ const isAuthenticated = exjwt({
   secret: process.env.TOKEN
 });
 
-// const encyptedPassword = "$2a$10$9xt9ca4LAMif03OTZ4Ocj.WhFj3FXUmUG56xLFInjhFY7GdD420eG";
-// function verifyPassword (password, cb) {
-//   bcrypt.compare(password, encyptedPassword, function(err, isMatch) {
-//     if (err) return cb(err);
-//     cb(null, isMatch);
-//     console.log("In server.js - verifyPassword");
-//   });
-// };
-
-// // LOGIN ROUTE
-// app.post('/api/login', (req, res) => {
-//   console.log("In server.js - app.post - before verifyPassord");
-//   verifyPassword(req.body.password, (err, isMatch) => {
-//       if(isMatch && !err) {
-//         console.log("In server.js - app.post - callback function - match");
-//         let token = jwt.sign({ user: "admin" }, process.env.TOKEN, { expiresIn: 129600 }); // Sigining the token
-//         res.json({success: true, message: "Token Issued!", token: token, user: "admin"});
-//       } else {
-//         res.status(401).json({success: false, message: "Authentication failed. Wrong password."});
-//         console.log("In server.js - app.post - callback function - No Match");
-//       }
-//   }).catch(err => res.status(404).json({success: false, message: "Error while verifying password", error: err}));
-// });
+const encyptedPassword = "$2a$10$9xt9ca4LAMif03OTZ4Ocj.WhFj3FXUmUG56xLFInjhFY7GdD420eG";
+function verifyPassword (password, cb) {
+  bcrypt.compare(password, encyptedPassword, function(err, isMatch) {
+    if (err) return cb(err);
+    cb(null, isMatch);
+    console.log("In server.js - verifyPassword");
+  });
+};
 
 // LOGIN ROUTE
 app.post('/api/login', (req, res) => {
-  
+  console.log("In server.js - app.post - before verifyPassord");
+  verifyPassword(req.body.password, (err, isMatch) => {
+      if(isMatch && !err) {
+        console.log("In server.js - app.post - callback function - match");
         let token = jwt.sign({ user: "admin" }, process.env.TOKEN, { expiresIn: 129600 }); // Sigining the token
         res.json({success: true, message: "Token Issued!", token: token, user: "admin"});
-      
+      } else {
+        res.status(401).json({success: false, message: "Authentication failed. Wrong password."});
+        console.log("In server.js - app.post - callback function - No Match");
+      }
+  }).catch(err => res.status(404).json({success: false, message: "Error while verifying password", error: err}));
 });
 
 
