@@ -83,8 +83,11 @@ performLogin = (event) => {
     const pathname = (
       locationState && locationState.from && locationState.from.pathname
     );
-    //return '/carousel/admin';
-    return pathname || '/carousel/admin';
+    // This needs to go to /carousel/admin instead of the last location before
+    // the login page because you do not what to go back to the /carousel page
+    // without the admin buttons of create, edit, and delete.
+    return '/carousel/admin';
+    //return pathname || '/carousel/admin';
   };
 
   render() {
