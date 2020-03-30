@@ -45,21 +45,26 @@ validatePasswordExists = () => {
 };
 
 
-performLogin = () => {
-  
+performLogin = (event) => {
+  event.preventDefault();
   if (this.validatePasswordExists()) return;
 
   this.setState( { cancelLogin: false } );
 
   //this.setState({ shouldRedirect: true });
 
+  console.log("In Login - before this.Auth.login");
+
   this.Auth.login(this.state.passwordInputted)
   .then(res => {
+    
+    console.log("login response: " + JSON.stringify(res));
+
     this.setState({ shouldRedirect: true });
+    console.log("shouldRedirect: " + this.state.shouldRedirect);
     // once user is logged in
     // take them to the admin route
-    console.log("shouldRedirect: " + this.state.shouldRedirect);
-    console.log("login response: " + JSON.stringify(res));
+    
     //this.props.history.push('/carousel/admin');
   })
   .catch(err => {

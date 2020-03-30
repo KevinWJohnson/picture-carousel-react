@@ -29,37 +29,63 @@ const isAuthenticated = exjwt({
   secret: process.env.TOKEN
 });
 
-// const encyptedPassword = "$2a$10$9xt9ca4LAMif03OTZ4Ocj.WhFj3FXUmUG56xLFInjhFY7GdD420eG";
-// function verifyPassword (password, cb) {
-//   bcrypt.compare(password, encyptedPassword, function(err, isMatch) {
-//     if (err) return cb(err);
-//     cb(null, isMatch);
-//     console.log("In server.js - verifyPassword");
-//   });
-// };
+// bcrypt.compare(password, user.password, function(error, result) {
+//   if(result === true) {
+//     return callback(null, user);
+//   }
+//   else {
+//     return callback(error);
+//   }
+// }
 
-// // LOGIN ROUTE
-// app.post('/api/login', (req, res) => {
-//   console.log("In server.js - app.post - before verifyPassord");
-//   verifyPassword(req.body.password, (err, isMatch) => {
-//       if(isMatch && !err) {
-//         console.log("In server.js - app.post - callback function - match");
-//         let token = jwt.sign({ user: "admin" }, process.env.TOKEN, { expiresIn: 129600 }); // Sigining the token
-//         res.json({success: true, message: "Token Issued!", token: token, user: "admin"});
-//       } else {
-//         res.status(401).json({success: false, message: "Authentication failed. Wrong password."});
-//         console.log("In server.js - app.post - callback function - No Match");
-//       }
-//   }).catch(err => res.status(404).json({success: false, message: "Error while verifying password", error: err}));
-// });
+//const encyptedPassword = "$2a$10$9xt9ca4LAMif03OTZ4Ocj.WhFj3FXUmUG56xLFInjhFY7GdD420eG";
+const encyptedPasswordAsync = "$2a$10$a1mMahKpaJKQJvRo003R3uxP4EcQCSDL7VsI4W3jElEt.FVJq3a52";
+function verifyPassword (password, cb) {
+  console.log("Before bcrypt.compare!!!!!!!!!!!!!");
+  console.log("password: " + password);
+  console.log("encyptedPasswordAsync: " + encyptedPasswordAsync);
+  bcrypt.compare(password, encyptedPasswordAsync, function(err, isMatch) {
+    console.log("isMatch: " + isMatch);
+    console.log("err: " + err);
+    if (isMatch === true) {
+      console.log("isMatch in verifyPassword: " + isMatch);
+      return cb(null, isMatch);
+    }
+    else {
+      console.log("Error in verifyPassword: " + err);
+      return cb(err);
+    }
+    
+  });
+};
+
 
 // LOGIN ROUTE
 app.post('/api/login', (req, res) => {
-  
+  console.log("before verifyPassword in app.post: ");
+  verifyPassword(req.body.password, (err, isMatch) => {
+      if(isMatch) {
+        console.log("isMatch in app.post: " + isMatch);
         let token = jwt.sign({ user: "admin" }, process.env.TOKEN, { expiresIn: 129600 }); // Sigining the token
+        console.log("Token before res.json in server.js: " + token);
         res.json({success: true, message: "Token Issued!", token: token, user: "admin"});
-      
+        console.log("Token after res.json in server.js: " + token);
+      } else {
+        console.log("Before Authentication failed  in server.js: ");
+        res.status(401).json({success: false, message: "Authentication failed. Wrong password."});
+        console.log("After Authentication failed  in server.js: ");
+      }
+  })
 });
+
+
+// LOGIN ROUTE
+// app.post('/api/login', (req, res) => {
+  
+//         let token = jwt.sign({ user: "admin" }, process.env.TOKEN, { expiresIn: 129600 }); // Sigining the token
+//         res.json({success: true, message: "Token Issued!", token: token, user: "admin"});
+      
+// });
 
 
 
