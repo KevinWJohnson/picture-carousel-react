@@ -14,6 +14,8 @@ import {
 
 import { NavLink as RRNavLink } from 'react-router-dom';
 
+import DropdownItemList from './DropdownItemList';
+
 
 const TopBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,12 +35,15 @@ const TopBar = (props) => {
                 Classes
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem>
+                <DropdownItemList
+                  slides={props.slides}
+                />
+                {/* <DropdownItem>
                   Period 1
                 </DropdownItem>
                 <DropdownItem>
                   Period 2
-                </DropdownItem>
+                </DropdownItem> */}
                 <DropdownItem divider />
                 <DropdownItem>
                   Reset

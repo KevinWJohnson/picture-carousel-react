@@ -292,8 +292,10 @@ class App extends Component {
           <div className="AppContainer">
 
           <div className="topbar">
-          <TopBar location={this.props.location} >
-          </TopBar>
+          <TopBar 
+              location={this.props.location}
+              slides={this.state.slides} 
+          />
           </div>
 
           <div className="login">
