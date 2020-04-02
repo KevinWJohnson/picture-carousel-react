@@ -64,6 +64,9 @@ class App extends Component {
           parseInt(a) - parseInt(b)
         ));
         this.setState({uniquePeriodsArray: uniquePeriods});
+
+          console.log("selectedGroup in App.js: " + this.state.selectedGroup);
+
       })
       )
     );
@@ -296,6 +299,11 @@ class App extends Component {
     
   };
 
+  handleSetGroup = (group) => {
+    this.setState( { selectedGroup: group} );
+
+  };
+
 
   render() {
     return (
@@ -305,6 +313,7 @@ class App extends Component {
           <TopBar 
               location={this.props.location}
               uniquePeriods={this.state.uniquePeriodsArray} 
+              setGroup={this.handleSetGroup}
           />
           </div>
 

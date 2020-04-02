@@ -37,6 +37,7 @@ const TopBar = (props) => {
               <DropdownMenu right>
                 <DropdownItemList
                   uniquePeriods={props.uniquePeriods}
+                  setGroup={props.setGroup}
                 />
               </DropdownMenu>
             </UncontrolledDropdown>
