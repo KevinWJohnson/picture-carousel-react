@@ -40,6 +40,7 @@ class App extends Component {
     editFormOpen: false,
     createFormOpen: false,
     cancelForm: false,
+    selectedGroup: '',
   };
 
   componentDidMount = () => {

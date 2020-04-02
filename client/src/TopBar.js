@@ -38,16 +38,6 @@ const TopBar = (props) => {
                 <DropdownItemList
                   slides={props.slides}
                 />
-                {/* <DropdownItem>
-                  Period 1
-                </DropdownItem>
-                <DropdownItem>
-                  Period 2
-                </DropdownItem> */}
-                <DropdownItem divider />
-                <DropdownItem>
-                  Reset
-                </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
             <UncontrolledDropdown nav inNavbar>

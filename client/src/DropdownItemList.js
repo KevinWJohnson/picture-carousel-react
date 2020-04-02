@@ -21,6 +21,15 @@ class DropdownItemList extends React.Component {
     render() {
         return (
             <div>
+                <DropdownItem 
+                        key={0} 
+                        name={'PeriodAll'} 
+                        value={'PeriodAll'}
+                        onClick={this.handleGroupClick}
+                >
+                All
+                </DropdownItem>
+                <DropdownItem divider />
                 {this.props.slides.map(slide => (
                     <DropdownItem 
                         key={slide.id} 
