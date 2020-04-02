@@ -25,6 +25,7 @@ class App extends Component {
   state = {
     intervalValue: 3000,
     slides: [],
+    groupedSlides: [],
     currentIndex: 0,
     fields: {
       title: '',
@@ -52,10 +53,7 @@ class App extends Component {
   loadSlidesFromServer = () => {  
     ClientAxios.getSlides((serverSlides) => (
       this.setState({ slides: serverSlides.data }, () => {
-        // const test = this.state.slides;
-        // const str2 = JSON.stringify(test, null, 4);
-        // console.log("Slides Loaded");
-        // console.log(str2);
+        
         const arrayPeriods = this.state.slides.map((slide) => {
           return slide.period;
         });
@@ -64,8 +62,29 @@ class App extends Component {
           parseInt(a) - parseInt(b)
         ));
         this.setState({uniquePeriodsArray: uniquePeriods});
+        
+        // console.log("selectedGroup in App.js before if statement: " + this.state.selectedGroup);
+        // Getting slides based on selectedGroup
+        if (this.state.selectedGroup === '' || this.state.selectedGroup === 'PeriodAll') {
+          this.setState((state) => {
+            // Always true - just returning a copy of the slides
+            return {groupedSlides: this.state.slides.concat()}
+            //return {groupedSlides: this.state.slides.filter(() => 0 === 0)}
+          });
 
-          console.log("selectedGroup in App.js: " + this.state.selectedGroup);
+        } else {
+          this.setState((state) => {
+            return {groupedSlides: this.state.slides.filter(s => s.period === this.state.selectedGroup)}
+          });
+        }
+
+        // console.log("selectedGroup in App.js: " + this.state.selectedGroup);
+        
+        // const test = this.state.groupedSlides;
+        // const str2 = JSON.stringify(test, null, 4);
+        // console.log("groupedSlides");
+        // console.log(str2);
+        
 
       })
       )
@@ -139,9 +158,9 @@ class App extends Component {
   getSlideId = () => {
     this.handleCarouselPause();
     let currentId = 0;
-    for (let i = 0; i < this.state.slides.length; i++) {
+    for (let i = 0; i < this.state.groupedSlides.length; i++) {
         if (this.state.currentIndex === i) {
-          currentId = this.state.slides[i].id;
+          currentId = this.state.groupedSlides[i].id;
         break;
         }
     }
@@ -151,7 +170,7 @@ class App extends Component {
 
   isLastSlide = () => {
     this.handleCarouselPause();
-      if (this.state.currentIndex === this.state.slides.length - 1) {
+      if (this.state.currentIndex === this.state.groupedSlides.length - 1) {
         return true;
       } else {
         return false;
@@ -362,7 +381,7 @@ class App extends Component {
                                     intervalSet={this.state.intervalValue}
                                     handleCurrentIndex={this.handleCarouselCurrentIndex}
                                     currentIndex={this.state.currentIndex}
-                                    currentSlides={this.state.slides}
+                                    currentSlides={this.state.groupedSlides}
                                     />}
             />
 
@@ -374,7 +393,7 @@ class App extends Component {
                                     onSubmit={this.handleCreateFormSubmit}
                                     onChange={this.onInputChange}
                                     fields={this.state.fields}
-                                    slides={this.state.slides}
+                                    slides={this.state.groupedSlides}
                                     validate={this.validate}
                                     onCancel={this.handleCancelForm}
                                     createFormOpen={this.state.createFormOpen}
@@ -388,7 +407,7 @@ class App extends Component {
                                     onSubmit={this.handleEditFormSubmit}
                                     onChange={this.onInputChange}
                                     fields={this.state.fields}
-                                    slides={this.state.slides}
+                                    slides={this.state.groupedSlides}
                                     validate={this.validate}
                                     onCancel={this.handleCancelForm}
                                     editFormOpen={this.state.editFormOpen}
