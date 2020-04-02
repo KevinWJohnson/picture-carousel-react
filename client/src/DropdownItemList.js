@@ -30,14 +30,14 @@ class DropdownItemList extends React.Component {
                 All
                 </DropdownItem>
                 <DropdownItem divider />
-                {this.props.slides.map(slide => (
+                {this.props.uniquePeriods.map(uniquePeriod => (
                     <DropdownItem 
-                        key={slide.id} 
-                        name={'Period '+ slide.period} 
-                        value={slide.period}
+                        key={uniquePeriod} 
+                        name={'Period '+ uniquePeriod} 
+                        value={uniquePeriod}
                         onClick={this.handleGroupClick}
                     >
-                    Period {slide.period}
+                    Period {uniquePeriod}
                     </DropdownItem>
                 ))}
                 

@@ -41,6 +41,7 @@ class App extends Component {
     createFormOpen: false,
     cancelForm: false,
     selectedGroup: '',
+    uniquePeriodsArray: [],
   };
 
   componentDidMount = () => {
@@ -55,6 +56,14 @@ class App extends Component {
         // const str2 = JSON.stringify(test, null, 4);
         // console.log("Slides Loaded");
         // console.log(str2);
+        const arrayPeriods = this.state.slides.map((slide) => {
+          return slide.period;
+        });
+        const uniquePeriods = arrayPeriods.filter((v, i, a) => a.indexOf(v) === i);
+        uniquePeriods.sort((a, b) => (
+          parseInt(a) - parseInt(b)
+        ));
+        this.setState({uniquePeriodsArray: uniquePeriods});
       })
       )
     );
@@ -295,7 +304,7 @@ class App extends Component {
           <div className="topbar">
           <TopBar 
               location={this.props.location}
-              slides={this.state.slides} 
+              uniquePeriods={this.state.uniquePeriodsArray} 
           />
           </div>
 

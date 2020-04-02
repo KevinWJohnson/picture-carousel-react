@@ -36,7 +36,7 @@ const TopBar = (props) => {
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItemList
-                  slides={props.slides}
+                  uniquePeriods={props.uniquePeriods}
                 />
               </DropdownMenu>
             </UncontrolledDropdown>
