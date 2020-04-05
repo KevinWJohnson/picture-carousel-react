@@ -52,44 +52,85 @@ class App extends Component {
 
   loadSlidesFromServer = () => {  
     ClientAxios.getSlides((serverSlides) => (
-      this.setState({ slides: serverSlides.data }, () => {
-        
-        const arrayPeriods = this.state.slides.map((slide) => {
-          return slide.period;
-        });
-        const uniquePeriods = arrayPeriods.filter((v, i, a) => a.indexOf(v) === i);
-        uniquePeriods.sort((a, b) => (
-          parseInt(a) - parseInt(b)
-        ));
-        this.setState({uniquePeriodsArray: uniquePeriods});
-        
-        // console.log("selectedGroup in App.js before if statement: " + this.state.selectedGroup);
-        // Getting slides based on selectedGroup
-        if (this.state.selectedGroup === '' || this.state.selectedGroup === 'PeriodAll') {
-          this.setState((state) => {
-            // Always true - just returning a copy of the slides
-            return {groupedSlides: this.state.slides.concat()}
-            //return {groupedSlides: this.state.slides.filter(() => 0 === 0)}
-          });
+      this.setState({ slides: serverSlides.data })
+    )).then(() => {
+      const arrayPeriods = this.state.slides.map((slide) => {
+        return slide.period;
+      });
+      return arrayPeriods;
+    }).then((arrayPeriods) => {
+      const uniquePeriods = arrayPeriods.filter((v, i, a) => a.indexOf(v) === i);
+      //console.log("uniquePeriods: "+ uniquePeriods);
+      return uniquePeriods;
+    }).then((uniquePeriods) => {
+      uniquePeriods.sort((a, b) => (
+        parseInt(a) - parseInt(b)
+      ));
+      return uniquePeriods;
+    }).then((uniquePeriods) => {
+      this.setState({uniquePeriodsArray: uniquePeriods});
+    }).then(this.determineAllGroup).then(this.conditionalChainng).then(() => {
+        //console.log("Finished with Sorted Group");
+    }).catch(function (error) {
+      console.log(error); //handle error
+    });
+  }
+  
+  determineAllGroup = () => {
+    if (this.state.selectedGroup === '' || this.state.selectedGroup === 'PeriodAll') {
+      return Promise.resolve(true);;
+    }
+  }
 
-        } else {
-          this.setState((state) => {
-            return {groupedSlides: this.state.slides.filter(s => s.period === this.state.selectedGroup)}
-          });
-        }
+  conditionalChainng = (value) => {
+    if (value) {
+      return this.copyAllSlides().then(this.sortSlides).then(this.setGroupState);
+    } else {
+      return this.filterGroup().then(this.sortSlides).then(this.setGroupState);
 
-        // console.log("selectedGroup in App.js: " + this.state.selectedGroup);
-        
-        // const test = this.state.groupedSlides;
-        // const str2 = JSON.stringify(test, null, 4);
-        // console.log("groupedSlides");
-        // console.log(str2);
-        
+    }
+  }
 
-      })
-      )
-    );
-  };
+  copyAllSlides = () => {
+    const slideAllCopy = this.state.slides.concat();
+    return Promise.resolve(slideAllCopy);
+  }
+
+  sortSlides = (slidesSorted) => {
+    // Sorting the slides by author
+
+    slidesSorted.sort(function(a, b) {
+      var authorA = a.author.toUpperCase(); // ignore upper and lowercase
+      var authorB = b.author.toUpperCase(); // ignore upper and lowercase
+      if (authorA < authorB) {
+        return -1;
+      }
+      if (authorA > authorB) {
+        return 1;
+      }
+    
+      // authors must be equal
+      return 0;
+    });
+      
+    return Promise.resolve(slidesSorted);
+  }
+
+  setGroupState = (groupedSlidesSorted) => {
+    this.setState({groupedSlides: groupedSlidesSorted});
+    return Promise.resolve({groupedSlides: groupedSlidesSorted});
+  }
+
+  filterGroup = () => {
+    const groupedSlides = this.state.slides.filter(s => s.period === this.state.selectedGroup);
+    return Promise.resolve(groupedSlides);
+  }
+
+  //       const test = this.state.groupedSlides;
+  //       const str2 = JSON.stringify(test, null, 4);
+  //       console.log("groupedSlides");
+  //       console.log(str2);
+        
 
   handleCarouselPlay = () => { 
     this.setState({intervalValue: 3000});

@@ -6,7 +6,7 @@ class DropdownItemList extends React.Component {
 
     handleGroupClick = (event) => {
         const value = event.target.value;
-        console.log("Period Clicked is : " + value);
+        //console.log("Period Clicked is : " + value);
         
         this.props.setGroup(value);
 
