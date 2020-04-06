@@ -84,9 +84,9 @@ class App extends Component {
 
   conditionalChainng = (value) => {
     if (value) {
-      return this.copyAllSlides().then(this.sortSlides).then(this.setGroupState);
+      return this.copyAllSlides().then(this.setGroupState);
     } else {
-      return this.filterGroup().then(this.sortSlides).then(this.setGroupState);
+      return this.filterGroup().then(this.setGroupState);
 
     }
   }
@@ -94,26 +94,6 @@ class App extends Component {
   copyAllSlides = () => {
     const slideAllCopy = this.state.slides.concat();
     return Promise.resolve(slideAllCopy);
-  }
-
-  sortSlides = (slidesSorted) => {
-    // Sorting the slides by author
-
-    slidesSorted.sort(function(a, b) {
-      var authorA = a.author.toUpperCase(); // ignore upper and lowercase
-      var authorB = b.author.toUpperCase(); // ignore upper and lowercase
-      if (authorA < authorB) {
-        return -1;
-      }
-      if (authorA > authorB) {
-        return 1;
-      }
-    
-      // authors must be equal
-      return 0;
-    });
-      
-    return Promise.resolve(slidesSorted);
   }
 
   setGroupState = (groupedSlidesSorted) => {
@@ -274,26 +254,63 @@ class App extends Component {
     return slide;
   };
 
+
+  sortSlides = (slidesSorted) => {
+    // Sorting the slides by author
+
+    slidesSorted.sort(function(a, b) {
+      var authorA = a.author.toUpperCase(); // ignore upper and lowercase
+      var authorB = b.author.toUpperCase(); // ignore upper and lowercase
+      if (authorA < authorB) {
+        return -1;
+      }
+      if (authorA > authorB) {
+        return 1;
+      }
+    
+      // authors must be equal
+      return 0;
+    });
+      
+    return Promise.resolve(slidesSorted);
+  }
+
+  setSlideState = (tempSlides) => {
+    this.setState({slides: tempSlides});
+    return Promise.resolve({slides: tempSlides});
+  }
+
   createSlide = (slide) => {
 
     if (this.validate()) return;
 
     const ns = this.newSlide(slide);
-    // console.log(this.state.slides);
-    // console.log('ns: ', ns);
-    this.setState({
-      slides: this.state.slides.concat(ns),
-      fields: {
-        title: '',
-        author: '',
-        period: '',
-        id: '',
-        imageUrl: '',
-        rotate: '',
-        width: '',
-        height: '',
-      }
+    
+    new Promise((resolve, reject) => {
+      resolve(ns);
+    }).then((ns) => {
+        const slidesWithNewAdded = this.state.slides.concat(ns);
+        return slidesWithNewAdded;
+    }).then(this.sortSlides)
+    .then((slidesWithNewAddedSorted) => {
+        this.setState({
+          slides: slidesWithNewAddedSorted,
+          fields: {
+            title: '',
+            author: '',
+            period: '',
+            id: '',
+            imageUrl: '',
+            rotate: '',
+            width: '',
+            height: '',
+          }
+        });
+    }).catch(function (error) {
+      console.log(error); //handle error
     });
+    
+    
     ClientAxios.createSlide(ns);
     // const test = this.state.slides.concat(ns);
     // const str2 = JSON.stringify(test, null, 4);
@@ -330,9 +347,10 @@ class App extends Component {
     });
   };
 
+
   editSlide = (attrs) => {
-    this.setState({
-      slides: this.state.slides.map((slide) => {
+    new Promise((resolve, reject) => {
+     const tempSlides = this.state.slides.map((slide) => {
         if (slide.id === attrs.id) {
           return Object.assign({}, slide, {
             title: attrs.title,
@@ -347,8 +365,12 @@ class App extends Component {
         } else {
           return slide;
         }
-      }),
+      });
+        resolve(tempSlides);
+    }).then(this.sortSlides).then(this.setSlideState).catch(function (error) {
+      console.log(error); //handle error
     });
+    
 
     ClientAxios.updateSlide(attrs);
   };

@@ -64,6 +64,7 @@ app.get('/api/slides', (req, res) => {
   });
 });
 
+
 app.post('/api/slides', (req, res) => {
   fs.readFile(DATA_FILE, (err, data) => {
     const slides = JSON.parse(data);
@@ -77,11 +78,34 @@ app.post('/api/slides', (req, res) => {
       width: req.body.width,
       height: req.body.height,
     };
-    slides.push(newSlide);
-    fs.writeFile(DATA_FILE, JSON.stringify(slides, null, 4), () => {
-      res.setHeader('Cache-Control', 'no-cache');
-      res.json(slides);
+    new Promise((resolve, reject) => {
+      resolve(newSlide);
+    }).then((newSlide) => {
+      slides.push(newSlide);
+      return slides;
+    }).then((slides) => {
+      slides.sort(function(a, b) {
+        var authorA = a.author.toUpperCase(); // ignore upper and lowercase
+        var authorB = b.author.toUpperCase(); // ignore upper and lowercase
+        if (authorA < authorB) {
+          return -1;
+        }
+        if (authorA > authorB) {
+          return 1;
+        }
+        // authors must be equal
+        return 0;
+      });
+      return slides;
+    }).then((slides) => {
+      fs.writeFile(DATA_FILE, JSON.stringify(slides, null, 4), () => {
+        res.setHeader('Cache-Control', 'no-cache');
+        res.json(slides);
+      });
+    }).catch(function (error) {
+      console.log(error); //handle error
     });
+    
   });
 });
 
@@ -100,15 +124,35 @@ app.put('/api/slides', (req, res) => {
         slide.height = req.body.height;
       }
     });
-    fs.writeFile(DATA_FILE, JSON.stringify(slides, null, 4), () => {
+    new Promise((resolve, reject) => {
+      resolve(slides);
+    }).then((slides) => {
+      slides.sort(function(a, b) {
+        var authorA = a.author.toUpperCase(); // ignore upper and lowercase
+        var authorB = b.author.toUpperCase(); // ignore upper and lowercase
+        if (authorA < authorB) {
+          return -1;
+        }
+        if (authorA > authorB) {
+          return 1;
+        }
+        // authors must be equal
+        return 0;
+      });
+      return slides;
+    }).then((slides) => {
+      fs.writeFile(DATA_FILE, JSON.stringify(slides, null, 4), () => {
       res.json({});
+      });
+    }).catch(function (error) {
+      console.log(error); //handle error
     });
   });
 });
 
 app.delete('/api/slides', (req, res) => {
-  console.log("Inside app.delete");
-  console.log("Slide Id to Delete: " + req.body.id);
+  // console.log("Inside app.delete");
+  // console.log("Slide Id to Delete: " + req.body.id);
   fs.readFile(DATA_FILE, (err, data) => {
     let slides = JSON.parse(data);
     slides = slides.reduce((memo, slide) => {
