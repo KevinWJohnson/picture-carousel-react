@@ -47,58 +47,38 @@ class App extends Component {
 
   componentDidMount = () => {
     this.loadSlidesFromServer();
-    setInterval(this.loadSlidesFromServerWithoutPeriods, 5000);
+    setInterval(this.loadSlidesFromServer, 5000);
   }
 
   loadSlidesFromServer = () => {  
     ClientAxios.getSlides((serverSlides) => (
       this.setState({ slides: serverSlides.data })
-    )).then(this.determinePeriods
-    ).then(this.determineAllGroup).then(this.conditionalChainng).then(() => {
-        //console.log("Finished with Sorted Group");
-    }).catch(function (error) {
-      console.log(error); //handle error
-    });
-  }
-
-  loadSlidesFromServerWithoutPeriods = () => {  
-    ClientAxios.getSlides((serverSlides) => (
-      this.setState({ slides: serverSlides.data })
-    )).then(this.determineAllGroup).then(this.conditionalChainng).then(() => {
+    )).then(() => {
+      const arrayPeriods = this.state.slides.map((slide) => {
+        return slide.period;
+      });
+      return arrayPeriods;
+    }).then((arrayPeriods) => {
+      const uniquePeriods = arrayPeriods.filter((v, i, a) => a.indexOf(v) === i);
+      //console.log("uniquePeriods: "+ uniquePeriods);
+      return uniquePeriods;
+    }).then((uniquePeriods) => {
+      uniquePeriods.sort((a, b) => (
+        parseInt(a) - parseInt(b)
+      ));
+      return uniquePeriods;
+    }).then((uniquePeriods) => {
+      this.setState({uniquePeriodsArray: uniquePeriods});
+    }).then(this.determineAllGroup).then(this.conditionalChainng).then(() => {
         //console.log("Finished with Sorted Group");
     }).catch(function (error) {
       console.log(error); //handle error
     });
   }
   
-  determinePeriods = () => {
-    this.getAllPeriods()
-  .then((arrayPeriods) => {
-    const uniquePeriods = arrayPeriods.filter((v, i, a) => a.indexOf(v) === i);
-    //console.log("uniquePeriods: "+ uniquePeriods);
-    return uniquePeriods;
-  }).then((uniquePeriods) => {
-    uniquePeriods.sort((a, b) => (
-      parseInt(a) - parseInt(b)
-    ));
-    return uniquePeriods;
-  }).then((uniquePeriods) => {
-    this.setState({uniquePeriodsArray: uniquePeriods});
-    return Promise.resolve(uniquePeriods);
-  });
-  }
-
-  getAllPeriods = () => {
-    const arrayPeriods = this.state.slides.map((slide) => {
-      return slide.period;
-    });
-    return Promise.resolve(arrayPeriods);
-  }
- 
-
   determineAllGroup = () => {
     if (this.state.selectedGroup === '' || this.state.selectedGroup === 'PeriodAll') {
-      return Promise.resolve(true);
+      return Promise.resolve(true);;
     }
   }
 
@@ -326,9 +306,6 @@ class App extends Component {
             height: '',
           }
         });
-    }).then(this.determinePeriods
-    ).then(this.determineAllGroup).then(this.conditionalChainng).then(() => {
-        //console.log("Finished with Sorted Group");
     }).catch(function (error) {
       console.log(error); //handle error
     });
@@ -390,15 +367,11 @@ class App extends Component {
         }
       });
         resolve(tempSlides);
-    }).then(this.sortSlides)
-    .then(this.setSlideState)
-    .then(this.determinePeriods
-    ).then(this.determineAllGroup).then(this.conditionalChainng).then(() => {
-        //console.log("Finished with Sorted Group");
-    }).catch(function (error) {
+    }).then(this.sortSlides).then(this.setSlideState).catch(function (error) {
       console.log(error); //handle error
     });
     
+
     ClientAxios.updateSlide(attrs);
   };
   
