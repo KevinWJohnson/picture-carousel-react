@@ -10,7 +10,6 @@ class SwipeComponent extends React.Component {
  
   
   swipedLeft = (e, deltaX) => {
-    //console.log("props test: ", this.props.passProp);
     this.props.handleLeftSwipe();
     //console.log("You're Swiping to the Left...", e, deltaX);
   }

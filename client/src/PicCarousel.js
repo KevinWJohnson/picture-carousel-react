@@ -62,7 +62,6 @@ import SwipeComponent from './SwipeComponent';
       <SwipeComponent
         handleRightSwipe={rightSwipe}
         handleLeftSwipe={leftSwipe}
-        passProp={'PassedTheProp'}
       >
         <Carousel
           activeIndex={props.currentIndex}
