@@ -6,7 +6,6 @@ import {
   CarouselIndicators,
   CarouselCaption
 } from 'reactstrap';
-import SwipeComponent from './SwipeComponent';
 
 
   const PicCarousel = (props) => {
@@ -30,14 +29,6 @@ import SwipeComponent from './SwipeComponent';
       props.handleCurrentIndex(newIndex);
     }
   
-    const rightSwipe = () => {
-      previous();
-    }
-
-    const leftSwipe = () => {
-      next();
-    }
-
     const slidesOfPics = items.map((item) => {
       return (
         <CarouselItem
@@ -59,23 +50,17 @@ import SwipeComponent from './SwipeComponent';
     });
    
     return (
-      <SwipeComponent
-        handleRightSwipe={rightSwipe}
-        handleLeftSwipe={leftSwipe}
-        passProp={'PassedTheProp'}
+      <Carousel
+        activeIndex={props.currentIndex}
+        next={next}
+        previous={previous}
+        interval={props.intervalSet}
       >
-        <Carousel
-          activeIndex={props.currentIndex}
-          next={next}
-          previous={previous}
-          interval={props.intervalSet}
-        >
-          <CarouselIndicators items={items} activeIndex={props.currentIndex} onClickHandler={goToIndex} />
-          {slidesOfPics}
-          <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
-          <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
-        </Carousel>
-      </SwipeComponent>
+        <CarouselIndicators items={items} activeIndex={props.currentIndex} onClickHandler={goToIndex} />
+        {slidesOfPics}
+        <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
+        <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
+      </Carousel>
     );
   }
   
