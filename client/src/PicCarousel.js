@@ -7,6 +7,7 @@ import {
   CarouselCaption
 } from 'reactstrap';
 import SwipeComponent from './SwipeComponent';
+import './PicCarousel.css';
 
 
   const PicCarousel = (props) => {
