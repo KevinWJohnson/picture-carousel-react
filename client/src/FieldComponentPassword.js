@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-module.exports = class extends React.Component {
+class FieldComponent extends React.Component {
+//module.exports = class extends React.Component {
   static propTypes = {
     placeholder: PropTypes.string,
     name: PropTypes.string.isRequired,
@@ -15,7 +16,7 @@ module.exports = class extends React.Component {
     error: false
   };
 
-  getDerivedStateFromProps(nextProps) {
+  static getDerivedStateFromProps(nextProps) {
     return {value: nextProps.value}
   }
 
@@ -29,10 +30,16 @@ module.exports = class extends React.Component {
     this.props.onChange({name, value, error});
   };
 
+  labelStyle = {
+    marginRight: '0.5%',
+  };
+
   render() {
     return (
-      <div>
+      <div className="form-group">
+        <label style={this.labelStyle} htmlFor={this.state.value}>{this.props.name}: </label>
         <input
+          type={this.props.hidden ? "password" : "text"}
           placeholder={this.props.placeholder}
           value={this.state.value}
           onChange={this.onChange}
@@ -42,3 +49,5 @@ module.exports = class extends React.Component {
     );
   }
 };
+
+export default FieldComponent

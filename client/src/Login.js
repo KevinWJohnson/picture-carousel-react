@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-//import { client } from '../Client';
-import Field from './FieldComponent.js';
-import './FieldForm.css';
+import FieldPassword from './FieldComponentPassword.js';
+import './Login.css';
 import AuthService from './AuthService';
 
 class Login extends Component {
@@ -18,8 +17,13 @@ class Login extends Component {
     cancelLogin: false,
     passwordName: '',
     passwordInputted: '',
-    passwordError: ''
+    passwordError: '',
+    hidden: true,
   };
+
+toggleShow = () => {
+  this.setState({ hidden: !this.state.hidden});
+}
 
 
 handleCancelLogin = () => {
@@ -84,6 +88,7 @@ performLogin = (event) => {
   };
 
   render() {
+    const hideText = this.state.hidden ? 'Show Password' : 'Hide Password';
     if (this.state.shouldRedirect) {
       return (
         <Redirect to={this.redirectPath()} />
@@ -95,7 +100,8 @@ performLogin = (event) => {
 
           <form onSubmit={this.performLogin}>
 
-            <Field
+            <FieldPassword
+              hidden={this.state.hidden}
               placeholder="Password goes here..."
               name="password"
               value={this.props.passwordInputted}
@@ -103,6 +109,8 @@ performLogin = (event) => {
               validate={val => (val ? false : 'Password Required')}
             />
 
+            <input type="button" id="buttonHidePassword" name="hidePassword" value={hideText} onClick={this.toggleShow}></input>
+            <br />
             <br />
             <input type="submit" id="buttonSubmit" value="Submit" disabled={this.validatePasswordExists()} />
             <input type="button" id="buttonCancel" name="cancelForm" value="Cancel" onClick={this.handleCancelLogin}></input>
