@@ -7,6 +7,7 @@ body {
 .AppContainer {
   width: 90%;
   height: 90%;
+  margin: 0 auto
 }
 
 img {
@@ -14,8 +15,8 @@ img {
   width: auto   9;
   height: auto;
   vertical-align: middle;
-  margin-left: 20;
-  border:3px solid black !important;
+  /* margin-left: 20; */
+  /* border:3px solid black !important; */
   /* border: 0; */
   -ms-interpolation-mode: bicubic;
 }
@@ -26,7 +27,7 @@ img {
 
 .carousel-item {
   width: 50%;
-  margin-top: 5%;
+  margin-top: 3%;
   margin-right: auto;
   margin-bottom: auto;
   margin-left: auto;
