@@ -29,7 +29,11 @@
 
 
 .AppContainer {
-  width: 90%;
-  height: 90%;
+  width: 98%;
+  height: 98%;
   margin: 0 auto
+}
+
+.clearFloat {
+  clear: both;
 }

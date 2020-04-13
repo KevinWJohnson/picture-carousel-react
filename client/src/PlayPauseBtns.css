@@ -10,11 +10,23 @@
 
 #buttonPlay, #buttonPause {
     margin-right: 1%;
+    margin-top: 3%;
   }
 
 
 .playPauseBtns {
+    margin-left: 1%;
     margin-top: 1%;
     margin-bottom: 1%;
     float: left;
     }
+
+/* Width at 640px and below */
+@media screen and (max-width: 640px) {
+
+    .playPauseBtns {
+        width: 160px;
+    }
+  
+    
+  }

@@ -14,7 +14,11 @@ img {
     margin: auto;
     object-fit: contain;
     max-width: 100%;
-    height: 50vh !important;
+    height: 55vh !important;
+  }
+
+  .carousel-inner {
+    margin-bottom: 1%;
   }
   
   .carousel-item {
@@ -32,6 +36,7 @@ img {
     right: 0 !important;
     color: black !important;
     padding-bottom: 3% !important;
+    margin-top: 1%;
   }
   
   
@@ -54,4 +59,44 @@ img {
     height: 50px !important;
     
   }
+
+/**
+ * Media Query
+ **/
+/*
+  The width of the wrapper will be 960px
+  at browser widths above 768px
+*/
+
+
+@media screen and (max-width: 768px) {
+  
+  
+  
+}
+
+/* Additional Screen Sizes */
+
+/* Width at 640px and below */
+@media screen and (max-width: 640px) {
+
+  .carousel-inner {
+    width: 250px;
+    height: 450px;
+  }
+
+  /* .carousel-inner img {
+    height: 55vh !important;
+  } */
+
+  .carousel-indicators {
+    height: 10% !important;
+  }
+  .carousel-caption {
+    height: 50% !important;
+    width: 50% !important;
+  }
+
+  
+}
   

@@ -435,8 +435,8 @@ class App extends Component {
           </div>
 
           <div className="BtnContainer">
-            <div className="row">
-              <div className="col">
+            {/* <div className="row"> */}
+              {/* <div className="col"> */}
                 <div className="playPauseBtns">
                   <Route
                   path='/carousel'
@@ -446,8 +446,8 @@ class App extends Component {
                                           />}
                   />
                 </div>
-              </div>
-              <div className="col">
+              {/* </div> */}
+              {/* <div className="col"> */}
                 <div className="createEditDeleteBtns">
                   <PrivateRoute
                   path='/carousel/admin'
@@ -458,8 +458,8 @@ class App extends Component {
                                           />}
                   />
                 </div>
-              </div>
-            </div>
+              {/* </div> */}
+            {/* </div> */}
           </div>
           <div className="clearFloat"></div>
 
