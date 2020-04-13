@@ -10,4 +10,16 @@
 
 #buttonCreate, #buttonEdit, #buttonDelete {
     margin-right: 1%;
-  }
+}
+
+
+.createEditDeleteBtns {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    float: right;
+}
+
+.clearFloat {
+    clear: both;
+}
+  

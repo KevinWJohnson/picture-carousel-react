@@ -26,3 +26,10 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+
+.AppContainer {
+  width: 90%;
+  height: 90%;
+  margin: 0 auto
+}

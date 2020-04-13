@@ -11,3 +11,10 @@
 #buttonPlay, #buttonPause {
     margin-right: 1%;
   }
+
+
+.playPauseBtns {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    float: left;
+    }

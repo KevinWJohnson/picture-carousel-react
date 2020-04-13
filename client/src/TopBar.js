@@ -16,6 +16,8 @@ import { NavLink as RRNavLink } from 'react-router-dom';
 
 import DropdownItemList from './DropdownItemList';
 
+import './TopBar.css';
+
 
 const TopBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
