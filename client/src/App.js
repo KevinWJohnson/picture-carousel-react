@@ -43,6 +43,7 @@ class App extends Component {
     cancelForm: false,
     selectedGroup: '',
     uniquePeriodsArray: [],
+    currentImageHeight: 55,
   };
 
   componentDidMount = () => {
@@ -139,6 +140,39 @@ class App extends Component {
   handleCarouselPause = () => { 
     this.setState({intervalValue: false});
   };
+
+  handleCarouselZoomOut = () => {
+    const zoomOutFactor = 0.10;
+    this.setState(prevState => {
+      let zoomOut = prevState.currentImageHeight - (prevState.currentImageHeight * zoomOutFactor);
+      if (zoomOut <= 0) {
+        zoomOut = 1;
+      }
+      document.documentElement.style.setProperty('--carousel-inner-img-height', zoomOut + 'vh');
+      // const getZoomOut = window.getComputedStyle(document.documentElement).getPropertyValue("--carousel-inner-img-height");
+      // console.log("Value of Zoom Out: " + getZoomOut);
+      return {
+        currentImageHeight: zoomOut
+      };
+    }); 
+    
+  };
+
+  handleCarouselZoomIn = () => { 
+    const zoomInFactor = 0.10;
+    this.setState(prevState => {
+      const zoomIn = prevState.currentImageHeight + (prevState.currentImageHeight * zoomInFactor);
+      document.documentElement.style.setProperty('--carousel-inner-img-height', zoomIn + 'vh');
+      // const getZoomIn = window.getComputedStyle(document.documentElement).getPropertyValue("--carousel-inner-img-height");
+      // console.log("Value of Zoom In: " + getZoomIn);
+      return {
+        currentImageHeight: zoomIn
+      };
+    });
+    
+  };
+
+
 
   handleCarouselCreate = () => { 
     //console.log("In handleCarouselCreate");
@@ -443,6 +477,8 @@ class App extends Component {
                   render={(routeProps) => <PlayPauseBtns {...routeProps}
                                           onPlay={this.handleCarouselPlay}
                                           onPause={this.handleCarouselPause}
+                                          onZoomIn={this.handleCarouselZoomIn}
+                                          onZoomOut={this.handleCarouselZoomOut}
                                           />}
                   />
                 </div>

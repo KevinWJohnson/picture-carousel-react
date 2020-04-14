@@ -1,4 +1,8 @@
- 
+:root {
+  --carousel-inner-img-height: 55vh;
+
+}
+
 img {
     max-width: 90%;
     width: auto   9;
@@ -14,7 +18,7 @@ img {
     margin: auto;
     object-fit: contain;
     max-width: 100%;
-    height: 55vh !important;
+    height: var(--carousel-inner-img-height) !important;
   }
 
   .carousel-inner {
@@ -85,9 +89,9 @@ img {
     height: 450px;
   }
 
-  /* .carousel-inner img {
-    height: 55vh !important;
-  } */
+  .carousel-inner img {
+    height: var(--carousel-inner-img-height) !important;
+  }
 
   .carousel-indicators {
     height: 10% !important;

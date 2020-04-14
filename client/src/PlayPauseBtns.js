@@ -1,5 +1,5 @@
 import React from 'react';
-import {IoIosPlay, IoIosPause} from 'react-icons/io';
+import {IoIosPlay, IoIosPause, IoMdAdd, IoMdRemove} from 'react-icons/io';
 import './PlayPauseBtns.css';
 
 const PlayPauseBtns = (props) => {
@@ -10,6 +10,14 @@ const PlayPauseBtns = (props) => {
 
   const handlePause = () => {
     props.onPause();
+  };
+
+  const handleZoomIn = () => {
+    props.onZoomIn();
+  };
+
+  const handleZoomOut = () => {
+    props.onZoomOut();
   };
 
   return (
@@ -33,6 +41,26 @@ const PlayPauseBtns = (props) => {
           >
             Pause Slide
             <span>  <IoIosPause /></span>
+      </button>
+    </div>
+    <div className='inner-ppBtns'>
+      <button
+            id='buttonZoomOut'
+            name='button-ZoomOut'
+            onClick={handleZoomOut}
+          >
+            Zoom Out
+            <span>  <IoMdRemove /></span>
+      </button>
+    </div>
+    <div className='inner-ppBtns'>
+      <button
+            id='buttonZoomIn'
+            name='button-ZoomIn'
+            onClick={handleZoomIn}
+          >
+            Zoom In
+            <span>  <IoMdAdd /></span>
       </button>
     </div>
   </div>
