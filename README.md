@@ -19,6 +19,11 @@
     
     Art Class's Zoom Out:
     ![Art Class's Zoom Out](/client/public/images/imagesREADME/ZoomOut.JPG)
+
+* Art Class allows the visitor to the site to filter the slides displayed by period.
+
+    Art Class's Period Filter:
+    ![Art Class's Period Filter](/client/public/images/imagesREADME/ClassesFilter.JPG)
     
 * Logging in as an administrator, enables that person to create a carousel slide, edit a carousel slide, and delete a carousel slide.
 
