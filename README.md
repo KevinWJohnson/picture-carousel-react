@@ -65,8 +65,3 @@
 
 ### Author
 Kevin Johnson
-
-### Try the app on GitHub!
-[Click here to try *Art Class* for yourself!](https://kevinwjohnson.github.io/picture-carousel-react/)
-
-
